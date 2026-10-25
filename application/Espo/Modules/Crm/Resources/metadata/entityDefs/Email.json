@@ -1,0 +1,35 @@
+{
+    "fields": {
+        "account": {
+            "type": "link",
+            "readOnly": true,
+            "customizationDisabled": true
+        },
+        "parent": {
+            "entityList": ["Account", "Lead", "Contact", "Opportunity", "Case"]
+        },
+        "tasks": {
+            "type": "linkMultiple",
+            "readOnly": true,
+            "columns": {
+                "status": "status"
+            },
+            "view": "crm:views/task/fields/tasks",
+            "fieldManagerParamList": [
+                "tooltipText"
+            ],
+            "dynamicLogicDisabled": true
+        }
+    },
+    "links": {
+        "account": {
+            "type": "belongsTo",
+            "entity": "Account"
+        },
+        "tasks": {
+            "type": "hasMany",
+            "entity": "Task",
+            "foreign": "email"
+        }
+    }
+}

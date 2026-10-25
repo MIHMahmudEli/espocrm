@@ -1,0 +1,66 @@
+{
+    "fields": {
+        "timeRanges": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "equals",
+                        "attribute": "type",
+                        "value": "Working"
+                    }
+                ]
+            }
+        },
+        "calendars": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "or",
+                        "value": [
+                            {
+                                "type": "isNotEmpty",
+                                "attribute": "calendarsIds"
+                            },
+                            {
+                                "type": "isEmpty",
+                                "attribute": "usersIds"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "users": {
+            "required": {
+                "conditionGroup": [
+                    {
+                        "type": "or",
+                        "value": [
+                            {
+                                "type": "isEmpty",
+                                "attribute": "calendarsIds"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "or",
+                        "value": [
+                            {
+                                "type": "isNotEmpty",
+                                "attribute": "usersIds"
+                            },
+                            {
+                                "type": "isEmpty",
+                                "attribute": "calendarsIds"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

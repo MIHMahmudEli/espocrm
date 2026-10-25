@@ -1,0 +1,21 @@
+{
+    "recordViews": {
+        "edit": "custom:views/lead/record/edit",
+        "editSmall": "custom:views/lead/record/edit-small"
+    },
+    "relationshipPanels": {
+        "productServices": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "tasks": {
+            "createAttributeMap": {
+                "name": "name"
+            },
+            "createHandler": "custom:handlers/create-task-prefill"
+        }
+    },
+    "kanbanViewMode": false,
+    "color": "#da90c8",
+    "iconClass": "fas fa-address-card"
+}

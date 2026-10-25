@@ -1,0 +1,17 @@
+{
+  "fields": {
+    "name": "Название",
+    "version": "Версия",
+    "description": "Описание",
+    "isInstalled": "Установлено",
+    "checkVersionUrl": "URL для проверки наличия новых версий"
+  },
+  "labels": {
+    "Uninstall": "Удалить",
+    "Install": "Установить"
+  },
+  "messages": {
+    "uninstalled": "Расширение {name} было удалено",
+    "fileExceedsMaxUploadSize": "Размер файла превышает максимальный размер загрузки {maxSize}. Рассмотрите возможность увеличения `post_max_size` или установите расширение через CLI."
+  }
+}

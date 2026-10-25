@@ -1,0 +1,110 @@
+{
+    "import": {
+        "className": "Espo\\Classes\\ConsoleCommands\\Import",
+        "listed": true
+    },
+    "clearCache": {
+        "listed": true,
+        "noSystemUser": true
+    },
+    "rebuild": {
+        "listed": true,
+        "noSystemUser": true,
+        "allowedFlags": [
+            "hard",
+            "y"
+        ]
+    },
+    "updateAppTimestamp": {
+        "listed": true,
+        "noSystemUser": true
+    },
+    "appInfo": {
+        "listed": true
+    },
+    "setPassword": {
+        "listed": true
+    },
+    "upgrade": {
+        "listed": true
+    },
+    "extension": {
+        "listed": true
+    },
+    "runJob": {
+        "listed": true,
+        "allowedOptions": [
+            "job",
+            "targetId",
+            "targetType"
+        ]
+    },
+    "version": {
+        "listed": true,
+        "noSystemUser": true
+    },
+    "createAdminUser": {
+        "className": "Espo\\Classes\\ConsoleCommands\\CreateAdminUser",
+        "listed": true
+    },
+    "rebuildCategoryPaths": {
+        "className": "Espo\\Classes\\ConsoleCommands\\RebuildCategoryPaths",
+        "listed": true
+    },
+    "populateArrayValues": {
+        "className": "Espo\\Classes\\ConsoleCommands\\PopulateArrayValues",
+        "listed": true
+    },
+    "populateNumbers": {
+        "className": "Espo\\Classes\\ConsoleCommands\\PopulateNumbers",
+        "listed": false
+    },
+    "populateScheduledJobs": {
+        "className": "Espo\\Classes\\ConsoleCommands\\PopulateScheduledJobs",
+        "listed": true,
+        "allowedFlags": [],
+        "allowedOptions": []
+    },
+    "checkFilePermissions": {
+        "className": "Espo\\Classes\\ConsoleCommands\\CheckFilePermissions",
+        "listed": true,
+        "noSystemUser": true
+    },
+    "config:get": {
+        "className": "Espo\\Classes\\ConsoleCommands\\GetConfigParam",
+        "listed": true,
+        "allowedFlags": ["json"],
+        "noSystemUser": true
+    },
+    "config:set": {
+        "className": "Espo\\Classes\\ConsoleCommands\\SetConfigParam",
+        "listed": true,
+        "allowedOptions": ["type"],
+        "noSystemUser": true
+    },
+    "config:populate": {
+        "className": "Espo\\Classes\\ConsoleCommands\\ConfigPopulate",
+        "listed": true,
+        "allowedOptions": [],
+        "allowedFlags": [],
+        "noSystemUser": true
+    },
+    "db:check": {
+        "className": "Espo\\Classes\\ConsoleCommands\\DbCheck",
+        "listed": true,
+        "noSystemUser": true
+    },
+    "appCheck": {
+        "className": "Espo\\Classes\\ConsoleCommands\\AppCheck",
+        "listed": true,
+        "noSystemUser": true
+    },
+    "migrate": {
+        "listed": true,
+        "noSystemUser": true
+    },
+    "migrationVersionStep": {
+        "listed": false,
+        "noSystemUser": true
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "CallRouteReminders": {
+        "name": "Call Route Reminders",
+        "jobClassName": "Espo\\Custom\\Jobs\\CallRouteReminders",
+        "scheduling": "* * * * *",
+        "isDefault": true
+    }
+}

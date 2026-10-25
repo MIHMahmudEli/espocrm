@@ -1,0 +1,10 @@
+{
+  "fields": {
+    "optOut": "Avmeldt",
+    "invalid": "Ugyldig",
+    "numeric": "Numerisk verdi"
+  },
+  "presetFilters": {
+    "orphan": "Foreldreløs"
+  }
+}

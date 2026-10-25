@@ -1,0 +1,10 @@
+{
+  "fields": {
+    "fieldList": "字段列表",
+    "exportAllFields": "导出所有字段",
+    "format": "格式"
+  },
+  "messages": {
+    "exportProcessed": "导出已被处理。下载[文件]({url})。"
+  }
+}

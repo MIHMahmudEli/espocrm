@@ -1,0 +1,53 @@
+{
+  "fields": {
+    "name": "名称",
+    "roles": "角色",
+    "assignmentPermission": "分配许可",
+    "userPermission": "用户权限",
+    "portalPermission": "门户权限",
+    "groupEmailAccountPermission": "群组邮件账户权限",
+    "exportPermission": "导出权限",
+    "dataPrivacyPermission": "数据隐私权限",
+    "massUpdatePermission": "批量更新权限"
+  },
+  "links": {
+    "users": "用户",
+    "teams": "团队"
+  },
+  "labels": {
+    "Access": "访问",
+    "Create Role": "创建角色",
+    "Scope Level": "范围级别",
+    "Field Level": "场级"
+  },
+  "options": {
+    "accessList": {
+      "not-set": "未设置",
+      "enabled": "启用",
+      "disabled": "禁用"
+    },
+    "levelList": {
+      "all": "全部",
+      "team": "团队",
+      "account": "客户",
+      "contact": "联系",
+      "own": "所有者",
+      "no": "没有",
+      "yes": "是",
+      "not-set": "未设置"
+    }
+  },
+  "actions": {
+    "read": "读取",
+    "edit": "编辑",
+    "delete": "删除",
+    "stream": "信息流",
+    "create": "创建"
+  },
+  "messages": {
+    "changesAfterClearCache": "访问控制中的所有更改将在缓存清除后应用。"
+  },
+  "tooltips": {
+    "dataPrivacyPermission": "允许查看和删除个人数据。"
+  }
+}

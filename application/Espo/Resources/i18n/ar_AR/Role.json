@@ -1,0 +1,55 @@
+{
+  "fields": {
+    "name": "الاسم",
+    "roles": "الأدوار",
+    "assignmentPermission": "إذن التخصيص",
+    "userPermission": "إذن المستخدم",
+    "portalPermission": "إذن البوابة",
+    "groupEmailAccountPermission": "إذن حساب البريد الإلكتروني الجماعي",
+    "exportPermission": "إذن التصدير",
+    "dataPrivacyPermission": "إذن خصوصية البيانات",
+    "massUpdatePermission": "إذن التحديث الشامل",
+    "followerManagementPermission": "إذن إدارة التابع"
+  },
+  "links": {
+    "users": "المستخدمين",
+    "teams": "الفرق"
+  },
+  "labels": {
+    "Access": "طريقة الدخول",
+    "Create Role": "إنشاء دور",
+    "Scope Level": "مستوى النطاق",
+    "Field Level": "مستوي الخانات"
+  },
+  "options": {
+    "accessList": {
+      "not-set": "غير مضبوط",
+      "enabled": "مفعل",
+      "disabled": "معطل"
+    },
+    "levelList": {
+      "all": "الكل",
+      "team": "فريق",
+      "account": "حساب",
+      "contact": "جهة إتصال",
+      "own": "ما يملكه",
+      "no": "لا",
+      "yes": "نعم",
+      "not-set": "غير مضبوط"
+    }
+  },
+  "actions": {
+    "read": "قراءة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "stream": "مشاركة في الاحداث",
+    "create": "إنشاء"
+  },
+  "messages": {
+    "changesAfterClearCache": "سيتم تطبيق جميع التغييرات في التحكم في الدخول بعد مسح ذاكرة التخزين المؤقت."
+  },
+  "tooltips": {
+    "dataPrivacyPermission": "يسمح لعرض ومحو البيانات الشخصية.",
+    "followerManagementPermission": "يسمح بإدارة متابعي سجلات محددة."
+  }
+}

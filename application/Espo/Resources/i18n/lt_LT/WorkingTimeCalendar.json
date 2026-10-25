@@ -1,0 +1,31 @@
+{
+  "labels": {
+    "Create WorkingTimeCalendar": "Sukurti kalendorių"
+  },
+  "fields": {
+    "timeZone": "Laiko juosta",
+    "timeRanges": "Darbo dienos tvarkaraštis",
+    "weekday0": "Sk.",
+    "weekday1": "Pr.",
+    "weekday2": "An.",
+    "weekday3": "Tr.",
+    "weekday4": "Kt.",
+    "weekday5": "Pn.",
+    "weekday6": "Št.",
+    "weekday0TimeRanges": "Sekmadienio tvarkaraštis",
+    "weekday1TimeRanges": "Pirmadienio tvarkaraštis",
+    "weekday2TimeRanges": "Antradienis Tvarkaraštis",
+    "weekday3TimeRanges": "Trečiadienio tvarkaraštis",
+    "weekday4TimeRanges": "Ketvirtadienio tvarkaraštis",
+    "weekday5TimeRanges": "Penktadienio tvarkaraštis",
+    "weekday6TimeRanges": "Šeštadienio tvarkaraštis",
+    "isDefault": "Ar tai numatytasis nustatymas"
+  },
+  "links": {
+    "ranges": "Išimtys",
+    "users": "Vartotojai"
+  },
+  "tooltips": {
+    "isDefault": "Nurodo, ar šis kalendorius yra numatytasis sistemos kalendorius. Numatytąjį darbo laiko kalendorių galima konfigūruoti meniu: „Administravimas“ > „Nustatymai“ > „Darbo laiko kalendorius“."
+  }
+}

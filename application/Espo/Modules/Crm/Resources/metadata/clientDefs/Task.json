@@ -1,0 +1,80 @@
+{
+    "controller": "crm:controllers/task",
+    "recordViews": {
+        "list": "crm:views/task/record/list",
+        "detail": "crm:views/task/record/detail"
+    },
+    "views": {
+        "list": "crm:views/task/list",
+        "detail": "crm:views/task/detail"
+    },
+    "viewSetupHandlers": {
+        "record/detail": [
+            "__APPEND__",
+            "crm:handlers/task/reminders-handler"
+        ],
+        "record/edit": [
+            "__APPEND__",
+            "crm:handlers/task/reminders-handler"
+        ]
+    },
+    "menu": {
+        "detail": {
+            "buttons": [
+                {
+                    "label": "Complete",
+                    "name": "setCompletedMain",
+                    "iconHtml": "<span class=\"fas fa-check fa-sm\"></span>",
+                    "acl": "edit",
+                    "handler": "modules/crm/handlers/task/menu",
+                    "actionFunction": "complete",
+                    "checkVisibilityFunction": "isCompleteAvailable"
+                }
+            ]
+        }
+    },
+    "detailActionList": [
+        {
+            "name": "complete",
+            "labelTranslation": "Task.labels.Complete",
+            "acl": "edit",
+            "handler": "modules/crm/handlers/task/detail-actions",
+            "actionFunction": "complete",
+            "checkVisibilityFunction": "isCompleteAvailable",
+            "iconClass": "fas fa-check"
+        }
+    ],
+    "modalDetailActionList": [
+        {
+            "name": "complete",
+            "labelTranslation": "Task.labels.Complete",
+            "acl": "edit",
+            "handler": "modules/crm/handlers/task/detail-actions",
+            "actionFunction": "complete",
+            "checkVisibilityFunction": "isCompleteAvailable",
+            "iconClass": "fas fa-check"
+        }
+    ],
+    "filterList": [
+        "actual",
+        {
+            "name": "completed",
+            "style": "success"
+        },
+        {
+            "name": "todays"
+        },
+        {
+            "name": "overdue",
+            "style": "danger"
+        },
+        {
+            "name": "deferred"
+        }
+    ],
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-tasks",
+    "kanbanViewMode": true
+}

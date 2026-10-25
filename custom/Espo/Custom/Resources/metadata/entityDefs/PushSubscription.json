@@ -1,0 +1,56 @@
+{
+    "fields": {
+        "assignedUser": {
+            "type": "link",
+            "entity": "User",
+            "required": true,
+            "readOnly": true
+        },
+        "endpoint": {
+            "type": "varchar",
+            "maxLength": 512,
+            "required": true
+        },
+        "publicKey": {
+            "type": "varchar",
+            "maxLength": 128,
+            "required": true
+        },
+        "authKey": {
+            "type": "varchar",
+            "maxLength": 64,
+            "required": true
+        },
+        "expirationTime": {
+            "type": "datetime"
+        },
+        "userAgent": {
+            "type": "varchar",
+            "maxLength": 255
+        },
+        "lastUsedAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "active": {
+            "type": "bool",
+            "default": true,
+            "index": true
+        },
+        "createdAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "modifiedAt": {
+            "type": "datetime",
+            "readOnly": true
+        }
+    },
+    "indexes": {
+        "pushSubscriptionEndpoint": {
+            "columns": [
+                "endpoint"
+            ]
+        }
+    }
+}

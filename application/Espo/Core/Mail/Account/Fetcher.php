@@ -1,0 +1,457 @@
+<?php
+/************************************************************************
+ * This file is part of EspoCRM.
+ *
+ * EspoCRM – Open Source CRM application.
+ * Copyright (C) 2014-2026 EspoCRM, Inc.
+ * Website: https://www.espocrm.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "EspoCRM" word.
+ ************************************************************************/
+
+namespace Espo\Core\Mail\Account;
+
+use Espo\Core\Exceptions\Error;
+use Espo\Core\Mail\Account\Fetcher\ConfigDataProvider;
+use Espo\Core\Mail\Account\Fetcher\FiltersProvider;
+use Espo\Core\Mail\Account\Fetcher\MessageFactory;
+use Espo\Core\Mail\Account\Fetcher\Unlocker;
+use Espo\Core\Mail\Account\Storage\Flag;
+use Espo\Core\Mail\Exceptions\ImapError;
+use Espo\Core\Mail\Exceptions\NoImap;
+use Espo\Core\Mail\Importer;
+use Espo\Core\Mail\Importer\Data as ImporterData;
+use Espo\Core\Mail\Message;
+use Espo\Core\Mail\ParserFactory;
+use Espo\Core\Mail\Account\Hook\BeforeFetch as BeforeFetchHook;
+use Espo\Core\Mail\Account\Hook\AfterFetch as AfterFetchHook;
+use Espo\Core\Mail\Account\Hook\BeforeFetchResult as BeforeFetchHookResult;
+use Espo\Core\Utils\Log;
+use Espo\Core\Field\DateTime as DateTimeField;
+use Espo\Entities\EmailFilter;
+use Espo\Entities\Email;
+use Espo\ORM\Collection;
+use Throwable;
+use DateTime;
+
+class Fetcher
+{
+    public function __construct(
+        private Importer $importer,
+        private StorageFactory $storageFactory,
+        private ConfigDataProvider $configDataProvider,
+        private Log $log,
+        private ParserFactory $parserFactory,
+        private FiltersProvider $filtersProvider,
+        private Unlocker $unlocker,
+        private MessageFactory $messageFactory,
+        private ?BeforeFetchHook $beforeFetchHook = null,
+        private ?AfterFetchHook $afterFetchHook = null,
+    ) {}
+
+    /**
+     * @throws Error
+     * @throws ImapError
+     * @throws NoImap
+     */
+    public function fetch(Account $account): void
+    {
+        if (!$account->isAvailableForFetching()) {
+            throw new Error("{$account->getEntityType()} {$account->getId()} is not active.");
+        }
+
+        $monitoredFolderList = $account->getMonitoredFolderList();
+
+        if (count($monitoredFolderList) === 0) {
+            return;
+        }
+
+        $filterList = $this->filtersProvider->get($account);
+
+        $storage = $this->storageFactory->create($account);
+
+        foreach ($monitoredFolderList as $folder) {
+            $this->fetchFolder($account, $folder, $storage, $filterList);
+        }
+
+        $storage->close();
+    }
+
+    /**
+     * @param Collection<EmailFilter> $filterList
+     * @throws Error
+     * @throws ImapError
+     */
+    private function fetchFolder(
+        Account $account,
+        string $folderOriginal,
+        Storage $storage,
+        Collection $filterList,
+    ): void {
+
+        $fetchData = $account->getFetchData();
+
+        $folder = mb_convert_encoding($folderOriginal, 'UTF7-IMAP', 'UTF-8');
+
+        try {
+            $storage->selectFolder($folderOriginal);
+
+            $uidValidity = $storage->getFolderStatus()->uidValidity;
+        } catch (Throwable $e) {
+            $this->log->error("Could not select IMAP folder. {type} {id}", [
+                'exception' => $e,
+                'type' => $account->getEntityType(),
+                'id' => $account->getId(),
+            ]);
+
+            return;
+        }
+
+        $lastUidValidity = $fetchData->getUidValidity($folder);
+        $lastId = $fetchData->getLastUid($folder);
+        $lastDate = $fetchData->getLastDate($folder);
+        $forceByDate = $fetchData->getForceByDate($folder);
+        $portionLimit = $forceByDate ? 0 : $account->getPortionLimit();
+
+        $previousLastId = $lastId;
+        $uidReset = false;
+
+        if ($lastUidValidity !== null && $uidValidity !== $lastUidValidity) {
+            $forceByDate = true;
+            $previousLastId = null;
+            $lastId = null;
+
+            $uidReset = true;
+        }
+
+        $ids = $this->fetchIds(
+            account: $account,
+            storage: $storage,
+            lastUid: $lastId,
+            lastDate: $lastDate,
+            forceByDate: $forceByDate,
+        );
+
+        $counter = 0;
+
+        foreach ($ids as $id) {
+            if ($counter === count($ids) - 1) {
+                $lastId = $id;
+            }
+
+            if ($forceByDate && $previousLastId && $id <= $previousLastId) {
+                $counter++;
+
+                continue;
+            }
+
+            $email = $this->fetchEmail(
+                account: $account,
+                storage: $storage,
+                id: $id,
+                filterList: $filterList,
+                mappedEmailFolderId: $account->getMappedEmailFolder($folderOriginal)?->getId(),
+            );
+
+            $isLast = $counter === count($ids) - 1;
+            $isLastInPortion = $counter === $portionLimit - 1;
+
+            if ($isLast || $isLastInPortion) {
+                $lastId = $id;
+
+                if ($email && $email->getDateSent()) {
+                    $lastDate = $email->getDateSent();
+
+                    if ($lastDate->toTimestamp() >= (new DateTime())->getTimestamp()) {
+                        $lastDate = DateTimeField::createNow();
+                    }
+                }
+
+                break;
+            }
+
+            $counter ++;
+        }
+
+        if ($forceByDate) {
+            $lastDate = DateTimeField::createNow();
+        }
+
+        $fetchData->setLastDate($folder, $lastDate);
+        $fetchData->setLastUid($folder, $lastId);
+        $fetchData->setUidValidity($folder, $uidValidity);
+
+        if ($forceByDate && $previousLastId) {
+            $ids = $storage->getUidsFromUid($previousLastId);
+
+            if (count($ids) && $ids[0] > $previousLastId) {
+                $fetchData->setForceByDate($folder, false);
+            }
+        }
+
+        if ($uidReset) {
+            $fetchData->setForceByDate($folder, false);
+        }
+
+        if (
+            !$forceByDate &&
+            count($ids) &&
+            $previousLastId &&
+            $previousLastId >= $lastId
+        ) {
+            // Handling broken numbering. Next time fetch since the last date rather than the last UID.
+            // Supposed not to happen.
+            // @todo Consider removing.
+            $fetchData->setForceByDate($folder, true);
+        }
+
+        $account->updateFetchData($fetchData);
+    }
+
+    /**
+     * @return int[]
+     * @throws Error
+     * @throws ImapError
+     */
+    private function fetchIds(
+        Account $account,
+        Storage $storage,
+        ?int $lastUid,
+        ?DateTimeField $lastDate,
+        bool $forceByDate,
+    ): array {
+
+        if ($lastUid !== null && !$forceByDate) {
+            return $storage->getUidsFromUid($lastUid);
+        }
+
+        if ($lastDate) {
+            return $storage->getUidsSinceDate($lastDate);
+        }
+
+        if (!$account->getFetchSince()) {
+            throw new Error("{$account->getEntityType()} {$account->getId()}, no fetch-since.");
+        }
+
+        $fetchSince = $account->getFetchSince()->toDateTime();
+
+        return $storage->getUidsSinceDate(
+            DateTimeField::fromDateTime($fetchSince)
+        );
+    }
+
+    /**
+     * @param Collection<EmailFilter> $filterList
+     */
+    private function fetchEmail(
+        Account $account,
+        Storage $storage,
+        int $id,
+        Collection $filterList,
+        ?string $mappedEmailFolderId,
+    ): ?Email {
+
+        $teamIdList = $account->getTeams()->getIdList();
+        $userIdList = $account->getUsers()->getIdList();
+        $userId = $account->getUser() ? $account->getUser()->getId() : null;
+        $assignedUserId = $account->getAssignedUser() ? $account->getAssignedUser()->getId() : null;
+        $groupEmailFolderId = $account->getGroupEmailFolder() ? $account->getGroupEmailFolder()->getId() : null;
+
+        $fetchOnlyHeader = $this->checkFetchOnlyHeader($storage, $id);
+
+        $folderData = $this->prepareFolderData($userId, $mappedEmailFolderId, $account);
+
+        $flags = null;
+
+        $parser = $this->parserFactory->create();
+
+        $importerData = ImporterData
+            ::create()
+            ->withTeamIdList($teamIdList)
+            ->withFilterList($filterList)
+            ->withFetchOnlyHeader($fetchOnlyHeader)
+            ->withFolderData($folderData)
+            ->withUserIdList($userIdList)
+            ->withAssignedUserId($assignedUserId)
+            ->withGroupEmailFolderId($groupEmailFolderId);
+
+        try {
+            $message = $this->messageFactory->create(
+                id: $id,
+                storage: $storage,
+                parser: $parser,
+                peek: $account->keepFetchedEmailsUnread(),
+            );
+
+            $hookResult = null;
+
+            if ($this->beforeFetchHook) {
+                $hookResult = $this->processBeforeFetchHook($account, $message);
+            }
+
+            if ($hookResult && $hookResult->toSkip()) {
+                return null;
+            }
+
+            if ($message->isFetched() && $account->keepFetchedEmailsUnread()) {
+                $flags = $message->getFlags();
+            }
+
+            $email = $this->importMessage($account, $message, $importerData);
+
+            if (!$email) {
+                return null;
+            }
+
+            $this->processUnseen($account, $flags, $storage, $id);
+        } catch (Throwable $e) {
+            $this->log->error("Import email message error. {type} {id}", [
+                'exception' => $e,
+                'type' => $account->getEntityType(),
+                'id' => $account->getId(),
+            ]);
+
+            return null;
+        }
+
+        $account->relateEmail($email);
+        $this->processAfterSaveHook($account, $email, $hookResult);
+
+        return $email;
+    }
+
+    private function processBeforeFetchHook(Account $account, Message $message): BeforeFetchHookResult
+    {
+        assert($this->beforeFetchHook !== null);
+
+        try {
+            return $this->beforeFetchHook->process($account, $message);
+        } catch (Throwable $e) {
+            $this->log->error("Before-fetch message hook error. {type} {id}.", [
+                'exception' => $e,
+                'type' => $account->getEntityType(),
+                'id' => $account->getId(),
+            ]);
+        }
+
+        return BeforeFetchHookResult::create()->withToSkip();
+    }
+
+    private function checkFetchOnlyHeader(Storage $storage, int $id): bool
+    {
+        $maxSize = $this->configDataProvider->getMessageMaxSize();
+
+        if (!$maxSize) {
+            return false;
+        }
+
+        try {
+            $size = $storage->getSize($id);
+        } catch (Throwable) {
+            return false;
+        }
+
+        if ($size > $maxSize * 1024 * 1024) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function importMessage(
+        Account $account,
+        Message $message,
+        ImporterData $data,
+    ): ?Email {
+
+        try {
+            return $this->importer->import($message, $data);
+        } catch (Throwable $e) {
+            $this->log->error("Import message error. {type} {id}.", [
+                'exception' => $e,
+                'type' => $account->getEntityType(),
+                'id' => $account->getId(),
+            ]);
+
+            $this->unlocker->process();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function prepareFolderData(?string $userId, ?string $mappedEmailFolderId, Account $account): array
+    {
+        if (!$userId) {
+            return [];
+        }
+
+        $folderData = [];
+
+        if ($mappedEmailFolderId) {
+            $folderData[$userId] = $mappedEmailFolderId;
+        } else if ($account->getEmailFolder()) {
+            $folderData[$userId] = $account->getEmailFolder()->getId();
+        }
+
+        return $folderData;
+    }
+
+    private function processAfterSaveHook(Account $account, Email $email, ?BeforeFetchHookResult $hookResult): void
+    {
+        if (!$this->afterFetchHook) {
+            return;
+        }
+
+        try {
+            $this->afterFetchHook->process(
+                account: $account,
+                email: $email,
+                beforeFetchResult: $hookResult ?? BeforeFetchHookResult::create(),
+            );
+        } catch (Throwable $e) {
+            $this->log->error("After-fetch message hook error. {type} {id}.", [
+                'exception' => $e,
+                'type' => $account->getEntityType(),
+                'id' => $account->getId(),
+            ]);
+        }
+    }
+
+    /**
+     * Handles cases where the PEEK command is not supported by the IMAP server.
+     *
+     * @param ?string[] $flags
+     * @throws ImapError
+     */
+    private function processUnseen(Account $account, ?array $flags, Storage $storage, int $id): void
+    {
+        if (
+            $account->keepFetchedEmailsUnread() &&
+            $flags !== null &&
+            !in_array(Flag::SEEN, $flags)
+        ) {
+            $storage->unmarkSeen($id);
+        }
+    }
+}

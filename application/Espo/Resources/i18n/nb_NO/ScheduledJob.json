@@ -1,0 +1,40 @@
+{
+  "fields": {
+    "name": "Navn",
+    "job": "Oppgave",
+    "scheduling": "Planlegging"
+  },
+  "links": {
+    "log": "Logg"
+  },
+  "labels": {
+    "Create ScheduledJob": "Opprett planlagt oppgave",
+    "As often as possible": "Så ofte som mulig"
+  },
+  "options": {
+    "job": {
+      "Cleanup": "Opprydning",
+      "CheckInboundEmails": "Sjekk gruppenes epostkontoer",
+      "CheckEmailAccounts": "Sjekk personlige epostkontoer",
+      "SendEmailReminders": "Send epostpåminnelser",
+      "AuthTokenControl": "Kontroll av autentiseringstoken",
+      "SendEmailNotifications": "Send epostvarsler",
+      "CheckNewVersion": "Se etter ny versjon",
+      "ProcessWebhookQueue": "Behandle webhook-kø",
+      "SendScheduledEmails": "Send planlagte e-poster"
+    },
+    "cronSetup": {
+      "linux": "Merk: Legg denne linjen til crontab-filen som kjører EspoCRMs planlagte oppgaver:",
+      "mac": "Merk: Legg denne linjen til crontab-filen som kjører EspoCRMs planlagte oppgaver:",
+      "windows": "Merk: Opprett en batch-fil med følgende kommandoer for å kjøre EspoCRMs planlagte oppgaver via Windows Scheduled Tasks:",
+      "default": "Merk: Legg denne kommandoen til Cron Job (planlagte oppgaver):"
+    },
+    "status": {
+      "Active": "Aktiv",
+      "Inactive": "Inaktiv"
+    }
+  },
+  "tooltips": {
+    "scheduling": "Crontab-notasjon. Angir hvor ofte jobben kjøres.\n\n`*/5 * * * *` – hvert 5. minutt\n\n`0 */2 * * *` – hver 2. time\n\n`30 1 * * *` – kl. 01:30 én gang per dag\n\n`0 0 1 * *` – den første dagen i måneden"
+  }
+}

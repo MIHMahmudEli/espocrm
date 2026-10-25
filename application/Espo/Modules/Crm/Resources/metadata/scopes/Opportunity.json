@@ -1,0 +1,18 @@
+{
+    "entity": true,
+    "layouts": true,
+    "tab": true,
+    "acl": true,
+    "aclPortal": true,
+    "aclPortalLevelList": ["all", "account", "contact", "own", "no"],
+    "module": "Crm",
+    "customizable": true,
+    "stream": true,
+    "importable": true,
+    "notifications": true,
+    "object": true,
+    "statusField": "stage",
+    "statusFieldLocked": true,
+    "kanbanStatusIgnoreList": ["Closed Lost"],
+    "currencyConversionAccessRequiredFieldList": ["amount"]
+}

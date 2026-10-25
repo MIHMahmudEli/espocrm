@@ -1,0 +1,11 @@
+[
+    "assignedUser",
+    "teams",
+    "subject",
+    "body",
+    "attachments",
+    "oneOff",
+    "createdAt",
+    "createdBy",
+    "modifiedAt"
+]

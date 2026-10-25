@@ -1,0 +1,37 @@
+{
+  "fields": {
+    "name": "Navn",
+    "body": "Brødtekst",
+    "subject": "Emne",
+    "attachments": "Vedlegg",
+    "oneOff": "Bruk en gang",
+    "category": "Kategori",
+    "insertField": "Plassholdere"
+  },
+  "labels": {
+    "Create EmailTemplate": "Ny epostmal",
+    "Available placeholders": "Tiljengelige Stedfortredere"
+  },
+  "tooltips": {
+    "oneOff": "Velg denne hvis du kun skal bruke malen en gang, f.eks. til masseutsendt epost."
+  },
+  "placeholderTexts": {
+    "optOutLink": "en avmeldingslenke",
+    "today": "Dagens dato",
+    "now": "Gjeldende dato og klokkeslett",
+    "currentYear": "Gjeldende År",
+    "optOutUrl": "URL for en avmeldingslenke"
+  },
+  "messages": {
+    "infoText": "Tilgjengelige plassholdere:\n\n{optOutUrl} &#8211; URL for en avmeldingslenke;\n\n{optOutLink} &#8211; en avmeldingslenke."
+  },
+  "options": {
+    "status": {
+      "Active": "Aktiv",
+      "Inactive": "Inaktiv"
+    }
+  },
+  "presetFilters": {
+    "actual": "Aktiv"
+  }
+}

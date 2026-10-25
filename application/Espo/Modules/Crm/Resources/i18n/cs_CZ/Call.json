@@ -1,0 +1,50 @@
+{
+  "fields": {
+    "name": "Název",
+    "parent": "Rodič",
+    "status": "Stav",
+    "dateStart": "Datum zahájení",
+    "dateEnd": "Datum ukončení",
+    "direction": "Směr",
+    "duration": "Trvání",
+    "description": "Popis",
+    "users": "Uživatelé",
+    "contacts": "Kontakty",
+    "leads": "Stopy",
+    "reminders": "Připomenutí",
+    "account": "Organizace",
+    "acceptanceStatus": "Stav přijetí"
+  },
+  "options": {
+    "status": {
+      "Planned": "Plánovaný",
+      "Held": "Uskutečněný",
+      "Not Held": "Neuskutečněný"
+    },
+    "direction": {
+      "Outbound": "Odchozí",
+      "Inbound": "Příchozí"
+    },
+    "acceptanceStatus": {
+      "None": "Žádný",
+      "Accepted": "Přijatý",
+      "Declined": "Odmítnutý",
+      "Tentative": "Předběžný"
+    }
+  },
+  "massActions": {
+    "setHeld": "Nastavit jako uskutečněný",
+    "setNotHeld": "Nastavit jako neuskutečněný"
+  },
+  "labels": {
+    "Create Call": "Vytvořit volání",
+    "Set Held": "Nastavit jako uskutečněný",
+    "Set Not Held": "Nastavit jako neuskutečněný",
+    "Send Invitations": "Poslat pozvánky"
+  },
+  "presetFilters": {
+    "planned": "Plánovaný",
+    "held": "Uskutečněný",
+    "todays": "Dnešní"
+  }
+}

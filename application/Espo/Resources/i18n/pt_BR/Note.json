@@ -1,0 +1,43 @@
+{
+  "fields": {
+    "post": "Postagem",
+    "attachments": "Anexos",
+    "targetType": "Alvo",
+    "teams": "Times",
+    "users": "Usuários",
+    "portals": "Portais",
+    "type": "Tipo",
+    "isGlobal": "É Global",
+    "isInternal": "É interno (para usuários internos)",
+    "related": "Relacionado",
+    "createdByGender": "Criado por Gênero",
+    "data": "Dado",
+    "number": "Número"
+  },
+  "filters": {
+    "all": "Todos",
+    "updates": "Atualizações",
+    "activity": "Atividade"
+  },
+  "messages": {
+    "writeMessage": "Escreva sua mensagem aqui"
+  },
+  "options": {
+    "type": {
+      "Post": "Postagem",
+      "Create": "Criar",
+      "Update": "Atualizar",
+      "EmailReceived": "Email recebido",
+      "EmailSent": "Email enviado"
+    }
+  },
+  "links": {
+    "related": "Relacionado",
+    "portals": "Portais",
+    "attachments": "Anexos"
+  },
+  "labels": {
+    "View Posts": "Ver Postagens",
+    "View Activity": "Ver atividade"
+  }
+}

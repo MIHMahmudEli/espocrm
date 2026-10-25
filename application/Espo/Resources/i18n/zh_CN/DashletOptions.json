@@ -1,0 +1,31 @@
+{
+  "fields": {
+    "title": "标题",
+    "dateFrom": "开始日期",
+    "dateTo": "结束日期",
+    "autorefreshInterval": "自动刷新间隔",
+    "displayRecords": "显示记录",
+    "isDoubleHeight": "2倍高度",
+    "mode": "模式",
+    "enabledScopeList": "显示内容",
+    "users": "用户",
+    "entityType": "功能类型",
+    "primaryFilter": "基础筛选器",
+    "boolFilterList": "扩展筛选器",
+    "expandedLayout": "布局",
+    "dateFilter": "日期筛选器"
+  },
+  "options": {
+    "mode": {
+      "agendaWeek": "周 (日程)",
+      "basicWeek": "周",
+      "month": "月",
+      "basicDay": "日",
+      "agendaDay": "日 (日程)",
+      "timeline": "时间线"
+    }
+  },
+  "messages": {
+    "selectEntityType": "在看板设置里选择实体类型。"
+  }
+}

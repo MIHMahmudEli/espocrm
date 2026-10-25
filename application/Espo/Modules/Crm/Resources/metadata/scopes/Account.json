@@ -1,0 +1,18 @@
+{
+    "entity": true,
+    "layouts": true,
+    "tab": true,
+    "acl": true,
+    "aclPortal": true,
+    "aclPortalLevelList": ["all", "account", "no"],
+    "module": "Crm",
+    "customizable": true,
+    "stream": true,
+    "stars": true,
+    "importable": true,
+    "notifications": true,
+    "object": true,
+    "hasPersonalData": true,
+    "duplicateCheckFieldList": ["name", "emailAddress"],
+    "lockable": true
+}

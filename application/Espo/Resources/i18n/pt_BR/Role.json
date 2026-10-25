@@ -1,0 +1,62 @@
+{
+  "fields": {
+    "name": "Nome",
+    "roles": "Regras",
+    "assignmentPermission": "Atribuição de Permissões",
+    "userPermission": "Permissão de Usuário",
+    "portalPermission": "Permissão de Portal",
+    "groupEmailAccountPermission": "Permissão da Conta de Email do Grupo",
+    "exportPermission": "Exportar Permissão",
+    "dataPrivacyPermission": "Permissão de Privacidade de Dados",
+    "massUpdatePermission": "Permissão de Atualização em Massa",
+    "followerManagementPermission": "Permissão de Gerenciamento de Seguidores",
+    "messagePermission": "Permissão de Mensagem"
+  },
+  "links": {
+    "users": "Usuários",
+    "teams": "Times"
+  },
+  "labels": {
+    "Access": "Acesso",
+    "Create Role": "Criar Regra",
+    "Scope Level": "Nível do Escopo",
+    "Field Level": "Nível do Campo"
+  },
+  "options": {
+    "accessList": {
+      "not-set": "indefinido",
+      "enabled": "habilitado",
+      "disabled": "desabilitado"
+    },
+    "levelList": {
+      "all": "tudo",
+      "team": "time",
+      "account": "conta",
+      "contact": "contato",
+      "own": "próprio",
+      "no": "nenhum",
+      "yes": "sim",
+      "not-set": "indefinido"
+    }
+  },
+  "actions": {
+    "read": "Ler",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "stream": "Fluxo",
+    "create": "Criar"
+  },
+  "messages": {
+    "changesAfterClearCache": "Todas as modificações no controle de acesso serão aplicadas após a limpeza do cache."
+  },
+  "tooltips": {
+    "dataPrivacyPermission": "Permite visualizar e apagar dados pessoais.",
+    "followerManagementPermission": "Permite gerenciar seguidores de registros específicos.",
+    "messagePermission": "Permite enviar mensagens para outros usuários.\n\n* todos – pode enviar para todos\n* time – pode enviar apenas para companheiros de equipe\n* não – não pode enviar",
+    "assignmentPermission": "Permite atribuir registros a outros usuários.\n\n* todos – sem restrição\n* equipe – pode atribuir apenas a companheiros de equipe\n* não – pode atribuir apenas a si mesmo",
+    "portalPermission": "Acesso a informações do portal, a capacidade de postar mensagens para os usuários do portal.",
+    "groupEmailAccountPermission": "Acesso a contas de e-mail de grupo, capacidade de enviar e-mails do grupo SMTP.",
+    "exportPermission": "Permite exportar registros.",
+    "massUpdatePermission": "A capacidade de executar atualização em massa de registros."
+  }
+}

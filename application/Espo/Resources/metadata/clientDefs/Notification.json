@@ -1,0 +1,11 @@
+{
+    "controller": "controllers/notification",
+    "acl": "acl/notification",
+    "aclPortal": "acl-portal/notification",
+    "model": "models/notification",
+    "collection": "collections/notification",
+    "itemViews": {
+        "System": "views/notification/items/system",
+        "EmailInbox": "views/notification/items/email-inbox"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "items": {
+        "webPushToggle": {
+            "view": "custom:views/site/navbar/web-push",
+            "class": "dropdown web-push-toggle-container",
+            "order": 14,
+            "disabled": false
+        }
+    }
+}

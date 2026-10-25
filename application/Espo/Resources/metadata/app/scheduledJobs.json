@@ -1,0 +1,87 @@
+{
+    "ProcessJobGroup": {
+        "name": "Process Job Group",
+        "isSystem": true,
+        "scheduling": "* * * * *",
+        "jobClassName": "Espo\\Core\\Job\\Job\\Jobs\\ProcessJobGroup",
+        "preparatorClassName": "Espo\\Core\\Job\\Preparator\\Preparators\\ProcessJobGroupPreparator"
+    },
+    "ProcessJobQueueQ0": {
+        "name": "Process Job Queue q0",
+        "isSystem": true,
+        "scheduling": "* * * * *",
+        "jobClassName": "Espo\\Core\\Job\\Job\\Jobs\\ProcessJobQueueQ0"
+    },
+    "ProcessJobQueueQ1": {
+        "name": "Process Job Queue q1",
+        "isSystem": true,
+        "scheduling": "*/1 * * * *",
+        "jobClassName": "Espo\\Core\\Job\\Job\\Jobs\\ProcessJobQueueQ1"
+    },
+    "ProcessJobQueueE0": {
+        "name": "Process Job Queue e0",
+        "isSystem": true,
+        "scheduling": "* * * * *",
+        "jobClassName": "Espo\\Core\\Job\\Job\\Jobs\\ProcessJobQueueE0"
+    },
+    "Dummy": {
+        "isSystem": true,
+        "scheduling": "1 */12 * * *",
+        "jobClassName": "Espo\\Classes\\Jobs\\Dummy"
+    },
+    "CheckNewVersion": {
+        "name": "Check for New Version",
+        "isSystem": true,
+        "scheduling": "15 5 * * *",
+        "jobClassName": "Espo\\Classes\\Jobs\\CheckNewVersion"
+    },
+    "CheckNewExtensionVersion": {
+        "name": "Check for New Versions of Installed Extensions",
+        "isSystem": true,
+        "scheduling": "25 5 * * *",
+        "jobClassName": "Espo\\Classes\\Jobs\\CheckNewExtensionVersion"
+    },
+    "SyncCurrencyRates": {
+        "name": "Sync Currency Rates",
+        "jobClassName": "Espo\\Classes\\Jobs\\SyncCurrencyRates",
+        "scheduling": "2 0 * * *",
+        "isSystem": true
+    },
+    "Cleanup": {
+        "jobClassName": "Espo\\Classes\\Jobs\\Cleanup",
+        "scheduling": "1 1 * * 0",
+        "isDefault": true
+    },
+    "AuthTokenControl": {
+        "jobClassName": "Espo\\Classes\\Jobs\\AuthTokenControl",
+        "scheduling": "*/6 * * * *",
+        "isDefault": true
+    },
+    "SendEmailNotifications": {
+        "jobClassName": "Espo\\Classes\\Jobs\\SendEmailNotifications",
+        "scheduling": "*/2 * * * *",
+        "isDefault": true
+    },
+    "ProcessWebhookQueue": {
+        "jobClassName": "Espo\\Classes\\Jobs\\ProcessWebhookQueue",
+        "scheduling": "*/2 * * * *",
+        "isDefault": true
+    },
+    "CheckEmailAccounts": {
+        "preparatorClassName": "Espo\\Classes\\JobPreparators\\CheckEmailAccounts",
+        "jobClassName": "Espo\\Classes\\Jobs\\CheckEmailAccounts",
+        "scheduling": "*/1 * * * *",
+        "isDefault": true
+    },
+    "CheckInboundEmails": {
+        "preparatorClassName": "Espo\\Classes\\JobPreparators\\CheckInboundEmails",
+        "jobClassName": "Espo\\Classes\\Jobs\\CheckInboundEmails",
+        "scheduling": "*/1 * * * *",
+        "isDefault": true
+    },
+    "SendScheduledEmails": {
+        "jobClassName": "Espo\\Classes\\Jobs\\SendScheduledEmails",
+        "scheduling": "*/10 * * * *",
+        "isDefault": true
+    }
+}

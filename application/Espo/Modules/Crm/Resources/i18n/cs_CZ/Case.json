@@ -1,0 +1,62 @@
+{
+  "fields": {
+    "name": "Název",
+    "number": "Číslo",
+    "status": "Stav",
+    "account": "Organizace",
+    "contact": "Kontakt",
+    "contacts": "Kontakty",
+    "priority": "Priorita",
+    "type": "Typ",
+    "description": "Popis",
+    "lead": "Potenciál",
+    "attachments": "Přílohy",
+    "inboundEmail": "Skupinový e-mailový účet",
+    "originalEmail": "Původní email",
+    "isInternal": "Schováno z portálu"
+  },
+  "links": {
+    "account": "Organizace",
+    "contact": "Kontakt (primární)",
+    "Contacts": "Kontakty",
+    "meetings": "Schůzky",
+    "calls": "Volání",
+    "tasks": "Úlohy",
+    "emails": "Emaily",
+    "articles": "Články znalostní báze",
+    "lead": "Potenciál",
+    "attachments": "Přílohy",
+    "inboundEmail": "Skupinový e-mailový účet"
+  },
+  "options": {
+    "status": {
+      "New": "Nový",
+      "Assigned": "Přiřazený",
+      "Pending": "Čekající",
+      "Closed": "Uzavřený",
+      "Rejected": "Odmítnutý",
+      "Duplicate": "Duplikovaný"
+    },
+    "priority": {
+      "Low": "Malá",
+      "Normal": "Normální",
+      "High": "Vysoká",
+      "Urgent": "Urgentní"
+    },
+    "type": {
+      "Question": "Otázka",
+      "Problem": "Problém"
+    }
+  },
+  "labels": {
+    "Create Case": "Vytvořit servisní požadavek",
+    "Close": "Uzavřít",
+    "Reject": "Odmítnout",
+    "Closed": "Uzavřeno",
+    "Rejected": "Odmítnuto"
+  },
+  "presetFilters": {
+    "open": "Otevřený",
+    "closed": "Zavřený"
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "fields": {
+        "cDescriptionDiff": {
+            "type": "text",
+            "readOnly": true,
+            "orderDisabled": true,
+            "tooltip": false,
+            "index": false,
+            "duplicateIgnore": true,
+            "isCustom": true
+        },
+        "parent": {
+            "entityList": [
+                "Lead",
+                "Account",
+                "Contact",
+                "Opportunity",
+                "Case"
+            ]
+        }
+    }
+}

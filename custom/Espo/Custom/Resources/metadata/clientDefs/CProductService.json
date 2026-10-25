@@ -1,0 +1,17 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-basket-shopping",
+    "relationshipPanels": {
+        "calls": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "leads": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

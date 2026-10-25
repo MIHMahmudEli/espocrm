@@ -1,0 +1,26 @@
+[
+    {
+        "rows": [
+            [{"name":"name"}, {"name": "status"}],
+            [{"name":"queue"}, {"name":"number"}],
+            [{"name":"group"}, false]
+        ]
+    },
+    {
+        "rows": [
+            [{"name":"executeTime"}, {"name": "createdAt"}],
+            [{"name":"startedAt"}, {"name": "modifiedAt"}],
+            [{"name":"executedAt"}, false],
+            [{"name":"attempts"}, false],
+            [{"name":"failedAttempts"}, false]
+        ]
+    },
+    {
+        "rows": [
+            [{"name":"scheduledJob"}, {"name":"targetType"}],
+            [{"name":"className"}, {"name":"targetId"}],
+            [{"name":"job"}, false],
+            [{"name": "data"}]
+        ]
+    }
+]

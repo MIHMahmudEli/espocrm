@@ -1,0 +1,10 @@
+art/ export-ignore
+tests/ export-ignore
+.github/ export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+readme.md export-ignore
+license.md export-ignore
+phpunit.xml export-ignore
+docker-compose.yml export-ignore
+phpstan.neon export-ignore

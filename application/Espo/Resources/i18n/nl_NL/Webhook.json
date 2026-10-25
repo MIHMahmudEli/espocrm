@@ -1,0 +1,21 @@
+{
+  "labels": {
+    "Create Webhook": "Creëer Webhook"
+  },
+  "fields": {
+    "event": "Actie",
+    "isActive": "Is actief",
+    "user": "API gebruiker",
+    "entityType": "Type entiteit",
+    "field": "Veld",
+    "secretKey": "Geheime sleutel",
+    "skipOwn": "Eigen overslaan"
+  },
+  "links": {
+    "user": "Gebruiker",
+    "queueItems": "Wachtrij items"
+  },
+  "tooltips": {
+    "skipOwn": "Niet verzenden als het evenement is geïnitieerd door de gebruiker die eigenaar is van de webhook."
+  }
+}

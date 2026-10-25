@@ -1,0 +1,53 @@
+name: "CI"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  phpunit:
+    name: "PHPUnit"
+    runs-on: "ubuntu-24.04"
+
+    strategy:
+      matrix:
+        php-version:
+          - "5.4"
+          - "5.5"
+          - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+        dependencies:
+          - "highest"
+        include:
+          - dependencies: "lowest"
+            php-version: "5.4"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: "none"
+          ini-values: "zend.assertions=1"
+
+      - name: "Install dependencies with Composer"
+        uses: "ramsey/composer-install@v3"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+
+      - name: "Run PHPUnit"
+        run: "vendor/bin/phpunit ${{ matrix.php-version < 7.3 && ' -c phpunit.xml.legacy' || '' }}"

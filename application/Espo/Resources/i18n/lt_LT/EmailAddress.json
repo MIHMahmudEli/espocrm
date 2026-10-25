@@ -1,0 +1,15 @@
+{
+  "labels": {
+    "Primary": "Pirminis",
+    "Opted Out": "Pasirinkta",
+    "Invalid": "Neteisingas"
+  },
+  "fields": {
+    "optOut": "Atsisakyta",
+    "invalid": "Negaliojantis",
+    "lower": "Vardas mažosiomis raidėmis"
+  },
+  "presetFilters": {
+    "orphan": "Našlaitis"
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "controller": "controllers/record",
+    "searchPanelDisabled": true,
+    "massUpdateDisabled": true,
+    "mergeDisabled": true,
+    "massRemoveDisabled": true,
+    "iconClass": "fas fa-calendar-week",
+    "menu": {
+        "list": {
+            "buttons": [
+                {
+                    "name": "ranges",
+                    "labelTranslation": "WorkingTimeCalendar.links.ranges",
+                    "link": "#WorkingTimeRange"
+                }
+            ]
+        }
+    },
+    "relationshipPanels": {
+        "teams": {
+            "createDisabled": true,
+            "editDisabled": true,
+            "removeDisabled": true
+        },
+        "users": {
+            "createDisabled": true,
+            "editDisabled": true,
+            "removeDisabled": true
+        }
+    }
+}

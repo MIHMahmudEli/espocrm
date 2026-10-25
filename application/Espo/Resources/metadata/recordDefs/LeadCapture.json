@@ -1,0 +1,23 @@
+{
+    "massActions": {
+        "delete": {
+            "allowed": true
+        },
+        "update": {
+            "allowed": true
+        }
+    },
+    "readLoaderClassNameList": [
+        "Espo\\Classes\\FieldProcessing\\LeadCapture\\ExampleLoader"
+    ],
+    "beforeCreateHookClassNameList": [
+        "Espo\\Classes\\RecordHooks\\LeadCapture\\BeforeCreate"
+    ],
+    "createInputFilterClassNameList": [
+        "Espo\\Classes\\Record\\LeadCapture\\InputFilter"
+    ],
+    "updateInputFilterClassNameList": [
+        "Espo\\Classes\\Record\\LeadCapture\\InputFilter"
+    ],
+    "loadAdditionalFieldsAfterUpdate": true
+}

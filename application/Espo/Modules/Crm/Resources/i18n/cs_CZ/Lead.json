@@ -1,0 +1,68 @@
+{
+  "labels": {
+    "Converted To": "Konvertováno do",
+    "Create Lead": "Vytvořit Potenciál",
+    "Convert": "Konvertovat",
+    "convert": "konvertovat"
+  },
+  "fields": {
+    "name": "Název",
+    "title": "Pozice",
+    "website": "Web",
+    "phoneNumber": "Telefon",
+    "accountName": "Název organizace",
+    "doNotCall": "Nevolat",
+    "address": "Adresa",
+    "status": "Stav",
+    "source": "Zdroj",
+    "opportunityAmount": "Částka případu",
+    "opportunityAmountConverted": "Částka případu (konvertováno)",
+    "description": "Popis",
+    "createdAccount": "Organizace",
+    "createdContact": "Kontakt",
+    "createdOpportunity": "Případ",
+    "campaign": "Kampaň",
+    "targetLists": "Cílové seznamy",
+    "targetList": "Cílový seznam",
+    "industry": "Druh činnosti",
+    "acceptanceStatus": "Stav přijetí",
+    "opportunityAmountCurrency": "Částka příležitosti v měně",
+    "acceptanceStatusMeetings": "Stav přijetí (Schůzky)",
+    "acceptanceStatusCalls": "Stav přijetí (Volání)",
+    "convertedAt": "Převedeno na",
+    "originalEmail": "Původní e-mail"
+  },
+  "links": {
+    "targetLists": "Cílové seznamy",
+    "campaignLogRecords": "Log kampaně",
+    "campaign": "Kampaň",
+    "createdAccount": "Organizace",
+    "createdContact": "Kontakt",
+    "createdOpportunity": "Příležitost",
+    "cases": "Případy",
+    "documents": "Dokumenty"
+  },
+  "options": {
+    "status": {
+      "New": "Nový",
+      "Assigned": "Přiřazený",
+      "In Process": "V procesu",
+      "Converted": "Konvertovaný",
+      "Recycled": "Recyklovaný",
+      "Dead": "Mrtvý"
+    },
+    "source": {
+      "Call": "Volání",
+      "Existing Customer": "Existující zákazník",
+      "Public Relations": "Veřejné vztahy",
+      "Web Site": "Web",
+      "Campaign": "Kampaň",
+      "Other": "Ostatní"
+    }
+  },
+  "presetFilters": {
+    "active": "Aktivní",
+    "converted": "Konvertovaný",
+    "actual": "Aktuální"
+  }
+}

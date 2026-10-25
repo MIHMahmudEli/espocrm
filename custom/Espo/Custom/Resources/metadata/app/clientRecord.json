@@ -1,0 +1,7 @@
+{
+    "panels": {
+        "history": {
+            "view": "custom:views/record/panels/history"
+        }
+    }
+}

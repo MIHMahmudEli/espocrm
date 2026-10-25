@@ -1,0 +1,37 @@
+{
+  "fields": {
+    "title": "Посада",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до",
+    "autorefreshInterval": "Інтервал автооновлення",
+    "displayRecords": "Відобразити записи",
+    "isDoubleHeight": "Висота 2x",
+    "mode": "Режим",
+    "enabledScopeList": "Що відображати",
+    "users": "Користувачі",
+    "entityType": "Тип сутності",
+    "primaryFilter": "Первинний фільтр",
+    "boolFilterList": "Додаткові фільтри",
+    "expandedLayout": "Макет",
+    "dateFilter": "Фільтр дати",
+    "skipOwn": "Не показувати власні записи",
+    "text": "Текст",
+    "folder": "Папка"
+  },
+  "options": {
+    "mode": {
+      "agendaWeek": "Тиждень (порядок денний)",
+      "basicWeek": "Тиждень",
+      "month": "Місяць",
+      "basicDay": "День",
+      "agendaDay": "День (порядок денний)",
+      "timeline": "Часова шкала"
+    }
+  },
+  "messages": {
+    "selectEntityType": "Виберіть тип сутності в опціях дашлету."
+  },
+  "tooltips": {
+    "skipOwn": "Дії, виконані вашим обліковим записом користувача, відображатися не будуть."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "fields": {
+    "layoutList": "Oppsett"
+  },
+  "labels": {
+    "Create LayoutSet": "Opprett oppsettsett",
+    "Edit Layouts": "Rediger Oppsett"
+  }
+}

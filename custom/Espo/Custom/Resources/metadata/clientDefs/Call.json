@@ -1,0 +1,56 @@
+{
+    "recordViews": {
+        "detail": "custom:views/call/record/detail",
+        "edit": "custom:views/call/record/edit",
+        "editSmall": "custom:views/call/record/edit-small"
+    },
+    "sidePanels": {
+        "detail": [
+            {
+                "name": "attendees",
+                "label": "Attendees",
+                "view": "crm:views/meeting/record/panels/attendees",
+                "sticked": true,
+                "isForm": true,
+                "notRefreshable": true
+            }
+        ],
+        "detailSmall": [
+            {
+                "name": "attendees",
+                "label": "Attendees",
+                "view": "crm:views/meeting/record/panels/attendees",
+                "sticked": true,
+                "isForm": true,
+                "notRefreshable": true
+            },
+            {
+                "name": "history",
+                "reference": "history"
+            }
+        ]
+    },
+    "bottomPanels": {
+        "detail": [
+            {
+                "name": "scheduler",
+                "label": "Scheduler",
+                "view": "crm:views/meeting/record/panels/scheduler",
+                "disabled": false,
+                "order": 3
+            },
+            {
+                "name": "history",
+                "reference": "history",
+                "disabled": false,
+                "order": 4
+            }
+        ]
+    },
+    "relationshipPanels": {
+        "productServices": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "labels": {
+    "Primary": "Основной",
+    "Opted Out": "Отписан",
+    "Invalid": "Неверный адрес"
+  },
+  "fields": {
+    "optOut": "Отписан",
+    "invalid": "Неверный адрес",
+    "lower": "Имя в нижнем регистре"
+  },
+  "presetFilters": {
+    "orphan": "Сирота"
+  }
+}

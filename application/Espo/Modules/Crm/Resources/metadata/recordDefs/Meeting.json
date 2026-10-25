@@ -1,0 +1,22 @@
+{
+    "listLoaderClassNameList": [
+        "Espo\\Modules\\Crm\\Classes\\FieldProcessing\\Meeting\\AcceptanceStatusLoader"
+    ],
+    "readLoaderClassNameList": [
+        "Espo\\Core\\FieldProcessing\\Reminder\\Loader"
+    ],
+    "saverClassNameList": [
+        "Espo\\Core\\FieldProcessing\\Reminder\\Saver",
+        "Espo\\Modules\\Crm\\Classes\\FieldProcessing\\Meeting\\SourceEmailSaver"
+    ],
+    "earlyBeforeCreateHookClassNameList": [
+        "Espo\\Modules\\Crm\\Classes\\RecordHooks\\Meeting\\BeforeCreateExternalServiceCheck"
+    ],
+    "beforeCreateHookClassNameList": [
+        "Espo\\Modules\\Crm\\Classes\\RecordHooks\\Meeting\\BeforeCreateSourceEmailCheck"
+    ],
+    "beforeUpdateHookClassNameList": [
+        "__APPEND__",
+        "Espo\\Classes\\RecordHooks\\Event\\BeforeUpdatePreserveDuration"
+    ]
+}

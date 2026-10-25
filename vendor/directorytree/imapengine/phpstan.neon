@@ -1,0 +1,7 @@
+parameters:
+	level: 4
+	ignoreErrors:
+	    -
+	        identifier: new.static
+	paths:
+		- src

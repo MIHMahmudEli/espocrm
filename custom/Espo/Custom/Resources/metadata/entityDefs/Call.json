@@ -1,0 +1,75 @@
+{
+    "links": {
+        "cProductServices": {
+            "type": "hasMany",
+            "relationName": "cCallProductService",
+            "foreign": "calls",
+            "entity": "CProductService",
+            "audited": false,
+            "isCustom": true
+        }
+    },
+    "fields": {
+        "cProductServices": {
+            "type": "linkMultiple",
+            "required": true
+        },
+        "cCallDate": {
+            "notNull": false,
+            "type": "date",
+            "required": true,
+            "default": "javascript: return this.dateTime.getToday();",
+            "isCustom": true
+        },
+        "cCallTime": {
+            "notNull": false,
+            "type": "datetime",
+            "required": true,
+            "default": "javascript: return this.dateTime.getNow(1);",
+            "minuteStep": 30,
+            "isCustom": true
+        },
+        "cCallReminderNotifiedFor": {
+            "type": "datetime",
+            "readOnly": true,
+            "orderDisabled": true,
+            "tooltip": false,
+            "duplicateIgnore": true,
+            "isCustom": true
+        },
+        "cDescriptionDiff": {
+            "type": "text",
+            "readOnly": true,
+            "orderDisabled": true,
+            "tooltip": false,
+            "index": false,
+            "duplicateIgnore": true,
+            "isCustom": true
+        },
+        "status": {
+            "options": [
+                "Planned",
+                "Held",
+                "Not Held",
+                "Not Received"
+            ]
+        },
+        "parent": {
+            "entityList": [
+                "Lead",
+                "Account",
+                "Contact",
+                "Opportunity",
+                "Case"
+            ]
+        },
+        "dateStart": {
+            "default": "javascript: return this.dateTime.getNow(1);",
+            "minuteStep": 30
+        },
+        "description": {
+            "required": true,
+            "duplicateIgnore": true
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "labels": {
+    "Create Webhook": "Izveidot Webhook"
+  },
+  "fields": {
+    "event": "Pasākums",
+    "isActive": "Vai ir aktīvs",
+    "user": "API lietotājs",
+    "entityType": "Vienības veids",
+    "field": "Laukums",
+    "secretKey": "Slepenā atslēga",
+    "skipOwn": "Izlaist savu"
+  },
+  "links": {
+    "user": "Lietotājs",
+    "queueItems": "Rindas elementi"
+  },
+  "tooltips": {
+    "skipOwn": "Nesūtīt, ja notikumu ir iniciējis lietotājs, kuram pieder tīmekļa āķis."
+  }
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "rows": [
+            [
+                {"name": "type"},
+                {"name": "name"}
+            ],
+            [
+                {"name": "dateStart"},
+                {"name": "dateEnd"}
+            ],
+            [
+                {"name": "timeRanges"},
+                false
+            ],
+            [
+                {"name": "users"},
+                false
+            ],
+            [
+                {"name": "calendars"},
+                false
+            ],
+            [
+                {"name": "description"}
+            ]
+        ]
+    }
+]

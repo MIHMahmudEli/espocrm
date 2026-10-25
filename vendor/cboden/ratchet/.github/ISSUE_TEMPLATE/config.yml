@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "Ratchet Discussions"
+    url: https://github.com/ratchetphp/Ratchet/discussions
+    about: 'We are happy to answer your questions! Start a new discussion in our "Q&A" category.'
+  - name: "Feature Requests"
+    url: https://github.com/ratchetphp/Ratchet/discussions/categories/ideas
+    about: 'You have ideas to improve our project? Start a new discussion in our "Ideas" category.'

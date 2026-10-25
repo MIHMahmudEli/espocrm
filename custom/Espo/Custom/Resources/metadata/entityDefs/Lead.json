@@ -1,0 +1,46 @@
+{
+    "links": {
+        "cProductServices": {
+            "type": "hasMany",
+            "relationName": "cLeadProductService",
+            "foreign": "leads",
+            "entity": "CProductService",
+            "audited": false,
+            "isCustom": true
+        }
+    },
+    "fields": {
+        "cProductServices": {
+            "type": "linkMultiple",
+            "required": true
+        },
+        "status": {
+            "options": [
+                "New",
+                "Assigned",
+                "In Process",
+                "Converted",
+                "Recycled",
+                "Dead"
+            ]
+        }
+    },
+    "collection": {
+        "orderBy": "createdAt",
+        "order": "desc",
+        "textFilterFields": [
+            "name",
+            "accountName",
+            "emailAddress",
+            "firstName",
+            "lastName",
+            "addressStreet",
+            "addressCity",
+            "phoneNumber"
+        ],
+        "fullTextSearch": true,
+        "countDisabled": false
+    },
+    "optimisticConcurrencyControl": false,
+    "transactionalSave": false
+}

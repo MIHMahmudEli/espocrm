@@ -1,0 +1,20 @@
+{
+    "Dompdf": {
+        "implementationClassNameMap": {
+            "entity": "Espo\\Tools\\Pdf\\Dompdf\\EntityPrinter"
+        },
+        "fontFaceList": [
+            "Courier",
+            "Helvetica",
+            "Times",
+            "Symbol",
+            "ZapfDingbats",
+            "DejaVu Sans",
+            "DejaVu Serif",
+            "DejaVu Sans Mono"
+        ],
+        "additionalParams": {
+            "fonts": []
+        }
+    }
+}

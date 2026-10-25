@@ -1,0 +1,159 @@
+<?php
+/************************************************************************
+ * This file is part of EspoCRM.
+ *
+ * EspoCRM – Open Source CRM application.
+ * Copyright (C) 2014-2026 EspoCRM, Inc.
+ * Website: https://www.espocrm.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "EspoCRM" word.
+ ************************************************************************/
+
+namespace Espo\Core\Mail\Account;
+
+use Espo\Core\Utils\ObjectUtil;
+use Espo\Core\Field\DateTime;
+
+use stdClass;
+use RuntimeException;
+
+class FetchData
+{
+    private stdClass $data;
+
+    /**
+     * @internal
+     */
+    public function __construct(
+        ?stdClass $data = null,
+        private int $validityNumber = 0,
+    ) {
+        $this->data = ObjectUtil::clone($data ?? (object) []);
+    }
+
+    public static function fromRaw(stdClass $data, int $fetchNumber): self
+    {
+        return new self($data, $fetchNumber);
+    }
+
+    public function getRaw(): stdClass
+    {
+        return ObjectUtil::clone($this->data);
+    }
+
+    public function getLastUid(string $folder): ?int
+    {
+        $id = $this->data->lastUID->$folder ?? null;
+
+        if ($id === null) {
+            return null;
+        }
+
+        // To int for bc. It used to be string.
+        return (int) $id;
+    }
+
+    public function getUidValidity(string $folder): ?int
+    {
+        $id = $this->data->uidValidity->$folder ?? null;
+
+        if (!is_int($id)) {
+            return null;
+        }
+
+        return $id;
+    }
+
+    public function setUidValidity(string $folder, ?int $uid): void
+    {
+        if (!property_exists($this->data, 'uidValidity')) {
+            $this->data->uidValidity = (object) [];
+        }
+
+        $this->data->uidValidity->$folder = $uid;
+    }
+
+    public function getLastDate(string $folder): ?DateTime
+    {
+        $value = $this->data->lastDate->$folder ?? null;
+
+        if ($value === null) {
+            return null;
+        }
+
+        // For backward compatibility.
+        if ($value === 0) {
+            return null;
+        }
+
+        if (!is_string($value)) {
+            throw new RuntimeException("Bad value in fetch-data.");
+        }
+
+        return DateTime::fromString($value);
+    }
+
+    public function getForceByDate(string $folder): bool
+    {
+        return $this->data->byDate->$folder ?? false;
+    }
+
+    public function setLastUid(string $folder, ?int $uniqueId): void
+    {
+        if (!property_exists($this->data, 'lastUID')) {
+            $this->data->lastUID = (object) [];
+        }
+
+        $this->data->lastUID->$folder = $uniqueId;
+    }
+
+    public function setLastDate(string $folder, ?DateTime $lastDate): void
+    {
+        if (!property_exists($this->data, 'lastDate')) {
+            $this->data->lastDate = (object) [];
+        }
+
+        if ($lastDate === null) {
+            $this->data->lastDate->$folder = null;
+
+            return;
+        }
+
+        $this->data->lastDate->$folder = $lastDate->toString();
+    }
+
+    public function setForceByDate(string $folder, bool $forceByDate): void
+    {
+        if (!property_exists($this->data, 'byDate')) {
+            $this->data->byDate = (object) [];
+        }
+
+        $this->data->byDate->$folder = $forceByDate;
+    }
+
+    /**
+     * @since 10.0.0
+     */
+    public function getValidityNumber(): int
+    {
+        return $this->validityNumber;
+    }
+}

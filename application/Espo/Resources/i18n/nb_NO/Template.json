@@ -1,0 +1,51 @@
+{
+  "fields": {
+    "name": "Navn",
+    "body": "Brødtekst",
+    "entityType": "Enhetstype",
+    "header": "Overskrift",
+    "leftMargin": "Venstremarg",
+    "topMargin": "Toppmarg",
+    "rightMargin": "Høyremarg",
+    "bottomMargin": "Bunnmarg",
+    "printFooter": "Skriv ut footer",
+    "footerPosition": "Footer-posisjon",
+    "variables": "Tiljengelige Stedfortredere",
+    "pageOrientation": "Sideorientering",
+    "pageFormat": "Papirformat",
+    "fontFace": "Skrifttype",
+    "pageWidth": "Sidebredde (mm)",
+    "pageHeight": "Sidehøyde (mm)",
+    "headerPosition": "Overskrift Posisjon",
+    "printHeader": "Skrivehode",
+    "title": "Tittel",
+    "style": "Stil",
+    "filename": "Filnavn"
+  },
+  "labels": {
+    "Create Template": "Opprett mal"
+  },
+  "tooltips": {
+    "footer": "Bruk {pageNumber} for å skrive ut sidenummer",
+    "variables": "Kopier og lim inn nødvendig plassholder i topptekst, brødtekst eller bunntekst.",
+    "filename": "Et valgfritt filnavn. Enhetens attributter kan brukes som plassholdere.\n\nEkstra plassholder:\n- `{{today}}`\n\nEksempel:\n`Document_{{today}}_{{name}}`"
+  },
+  "options": {
+    "pageOrientation": {
+      "Portrait": "Portrett",
+      "Landscape": "Liggende"
+    },
+    "placeholders": {
+      "today": "I dag (dato)",
+      "now": "Nå (dato-tid)",
+      "pagebreak": "Sideskift"
+    },
+    "pageFormat": {
+      "Custom": "Tilpasset"
+    },
+    "status": {
+      "Active": "Aktiv",
+      "Inactive": "Inaktiv"
+    }
+  }
+}

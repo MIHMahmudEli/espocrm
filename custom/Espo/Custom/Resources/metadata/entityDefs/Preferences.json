@@ -1,0 +1,8 @@
+{
+    "fields": {
+        "webPushMutedCategories": {
+            "type": "jsonArray",
+            "default": []
+        }
+    }
+}

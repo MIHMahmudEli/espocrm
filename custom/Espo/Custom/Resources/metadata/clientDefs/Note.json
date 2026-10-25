@@ -1,0 +1,5 @@
+{
+    "itemViews": {
+        "Create": "custom:views/stream/notes/create"
+    }
+}

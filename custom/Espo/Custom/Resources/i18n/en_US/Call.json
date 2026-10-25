@@ -1,0 +1,12 @@
+{
+    "fields": {
+        "cProductServices": "Product Services",
+        "cCallDate": "Call Date",
+        "cCallTime": "Call Time"
+    },
+    "messages": {
+        "callReminder": "**Call Reminder**: {entityType} {entity} is due now. Please make the call.",
+        "webPushCallTitle": "Call Reminder",
+        "webPushCallBody": "{entity} is due now. Please make the call."
+    }
+}

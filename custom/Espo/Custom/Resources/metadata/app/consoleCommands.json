@@ -1,0 +1,13 @@
+{
+    "webPushGenerateVapidKeys": {
+        "className": "Espo\\Custom\\ConsoleCommands\\WebPushGenerateVapidKeys",
+        "listed": true,
+        "allowedFlags": [
+            "force"
+        ],
+        "allowedOptions": [
+            "subject"
+        ],
+        "noSystemUser": true
+    }
+}

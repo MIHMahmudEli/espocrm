@@ -1,0 +1,50 @@
+{
+  "fields": {
+    "dateFormat": "صيغة التاريخ",
+    "timeFormat": "صيغة الوقت",
+    "timeZone": "وحدة زمنية",
+    "weekStart": "اليوم الأول من الأسبوع",
+    "thousandSeparator": "ألف فاصل",
+    "decimalMark": "علامة عشرية",
+    "defaultCurrency": "العملة الافتراضية",
+    "currencyList": "قائمة العملات",
+    "language": "لغة",
+    "exportDelimiter": "محدد الادخال من الخارج",
+    "signature": "إمضاء البريد الإلكتروني",
+    "dashboardTabList": "قائمة علامات التبويب",
+    "tabList": "قائمة علامات التبويب",
+    "defaultReminders": "التذكيرات الافتراضية",
+    "theme": "المظهر",
+    "useCustomTabList": "قائمة علامة تبويب مخصصة",
+    "receiveAssignmentEmailNotifications": "اشعارات البريد الإلكتروني على الاحالة",
+    "receiveMentionEmailNotifications": "إشعارات البريد الإلكتروني حول الإشارات في النشرات",
+    "receiveStreamEmailNotifications": "إشعارات البريد الإلكتروني حول المشاركات وتحديثات الحالة",
+    "dashboardLayout": "مظهر الرئيسية",
+    "emailReplyForceHtml": "الرد بالبريد الإلكتروني بتنسيق HTML",
+    "autoFollowEntityTypeList": "المتابعة التلقائية العالمية",
+    "emailReplyToAllByDefault": "الرد بالبريد الإلكتروني على الكل افتراضيًا",
+    "doNotFillAssignedUserIfNotRequired": "لا تملأ المستخدم المعين مسبقًا عند إنشاء السجل",
+    "followEntityOnStreamPost": "سجل المتابعة التلقائي بعد النشر في الدفق",
+    "followCreatedEntities": "السجلات التي تم إنشاؤها بالمتابعة التلقائية",
+    "followCreatedEntityTypeList": "تم إنشاء سجلات المتابعة التلقائية لأنواع كيانات معينة",
+    "emailUseExternalClient": "استخدم عميل بريد إلكتروني خارجي",
+    "assignmentNotificationsIgnoreEntityTypeList": "إخطارات التخصيص داخل التطبيق",
+    "assignmentEmailNotificationsIgnoreEntityTypeList": "إخطارات تعيين البريد الإلكتروني"
+  },
+  "options": {
+    "weekStart": {
+      "0": "الأحد",
+      "1": "الإثنين"
+    }
+  },
+  "labels": {
+    "Notifications": "الإشعارات",
+    "User Interface": "واجهة المستخدم",
+    "Misc": "موسيقى",
+    "Locale": "محلي",
+    "Reset Dashboard to Default": "إعادة تعيين لوحة التحكم إلى الافتراضي"
+  },
+  "tooltips": {
+    "autoFollowEntityTypeList": "اتبع تلقائيًا جميع السجلات الجديدة (التي أنشأها أي مستخدم) لأنواع الكيانات المحددة. لتتمكن من رؤية المعلومات في الدفق وتلقي الإخطارات حول جميع السجلات في النظام."
+  }
+}

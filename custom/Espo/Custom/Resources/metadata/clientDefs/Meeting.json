@@ -1,0 +1,43 @@
+{
+    "recordViews": {
+        "edit": "custom:views/meeting/record/edit",
+        "editSmall": "custom:views/meeting/record/edit-small"
+    },
+    "sidePanels": {
+        "detail": [
+            {
+                "name": "attendees",
+                "label": "Attendees",
+                "view": "crm:views/meeting/record/panels/attendees",
+                "options": {
+                    "fieldList": [
+                        "users",
+                        "contacts",
+                        "leads"
+                    ]
+                },
+                "sticked": true,
+                "isForm": true,
+                "notRefreshable": true
+            },
+            {
+                "name": "history",
+                "reference": "history"
+            }
+        ],
+        "detailSmall": [
+            {
+                "name": "attendees",
+                "label": "Attendees",
+                "view": "crm:views/meeting/record/panels/attendees",
+                "sticked": true,
+                "isForm": true,
+                "notRefreshable": true
+            },
+            {
+                "name": "history",
+                "reference": "history"
+            }
+        ]
+    }
+}

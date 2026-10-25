@@ -1,0 +1,75 @@
+{
+  "fields": {
+    "dateFormat": "Формат даты",
+    "timeFormat": "Формат времени",
+    "timeZone": "Часовой пояс",
+    "weekStart": "Первый день недели",
+    "thousandSeparator": "Тысячный разделитель",
+    "decimalMark": "Десятичный разделитель",
+    "defaultCurrency": "Валюта по умолчанию",
+    "currencyList": "Список валют",
+    "language": "Язык",
+    "exportDelimiter": "Разделитель полей при экспорте",
+    "signature": "Подпись к эл. письмам",
+    "dashboardTabList": "Список вкладок",
+    "tabList": "Список вкладок",
+    "defaultReminders": "Напоминания по умолчанию.",
+    "theme": "Тема",
+    "useCustomTabList": "Настраиваемый список вкладок",
+    "receiveAssignmentEmailNotifications": "Получать оповещения по эл. почте при назначении",
+    "receiveMentionEmailNotifications": "Уведомления по эл. почте об упоминаниях в сообщениях",
+    "receiveStreamEmailNotifications": "Уведомления по электронной почте о сообщениях и обновлениях статуса",
+    "dashboardLayout": "Планировка панели виджетов",
+    "emailReplyForceHtml": "Отправить ответ в HTML",
+    "autoFollowEntityTypeList": "Автоподписка",
+    "emailReplyToAllByDefault": "Отправить ответ всем по умолчанию",
+    "doNotFillAssignedUserIfNotRequired": "Не заполнять предварительно назначенного пользователя при создании записи",
+    "followEntityOnStreamPost": "Автоматически подписаться поле публикации в ленте",
+    "followCreatedEntities": "Автоматически подписаться на созданные записи",
+    "followCreatedEntityTypeList": "Автоматически подписаться на созданные записи конкретных типов объектов",
+    "emailUseExternalClient": "Использовать внешний почтовый клиент",
+    "assignmentNotificationsIgnoreEntityTypeList": "Оповещения о назначении в приложении",
+    "assignmentEmailNotificationsIgnoreEntityTypeList": "Оповещения по эл.почте о назначении",
+    "dashboardLocked": "Приборная панель блокировки",
+    "textSearchStoringDisabled": "Отключить сохранение текстового фильтра",
+    "calendarSlotDuration": "Продолжительность календарного слота",
+    "calendarScrollHour": "Календарь Прокрутка до часа",
+    "defaultRemindersTask": "Напоминания по умолчанию для задач",
+    "addCustomTabs": "Добавьте пользовательские вкладки",
+    "reactionNotifications": "Уведомления в приложении о реакциях",
+    "pageContentWidth": "Ширина содержимого",
+    "reactionNotificationsNotFollowed": "Уведомления о реакциях на несоблюденные записи",
+    "followAsCollaborator": "Автоследование при добавлении в качестве соавтора",
+    "notificationGrouping": "Групповые уведомления",
+    "notificationSound": "Звук уведомления"
+  },
+  "options": {
+    "weekStart": {
+      "0": "Воскресенье",
+      "1": "Понедельник"
+    },
+    "pageContentWidth": {
+      "": "Нормальный",
+      "Wide": "Широкий"
+    }
+  },
+  "labels": {
+    "Notifications": "Оповещения",
+    "User Interface": "Интерфейс пльзователя",
+    "Misc": "Разное",
+    "Locale": "Локаль",
+    "Reset Dashboard to Default": "Сбросить настройки панели виджетов по умолчанию"
+  },
+  "tooltips": {
+    "autoFollowEntityTypeList": "Пользователь будет автоматически подисан на все новые записи о выбранных типах объектов, будет видеть эту информацию в ленте и получать оповещения.",
+    "addCustomTabs": "Если флажок установлен, пользовательские вкладки будут добавлены к вкладкам по умолчанию. В противном случае пользовательские вкладки будут использоваться вместо вкладок по умолчанию.",
+    "doNotFillAssignedUserIfNotRequired": "При создании новой записи назначенный пользователь не будет предварительно заполнен собственным пользователем. Если поле назначенного пользователя является обязательным, то этот параметр не имеет значения.",
+    "followCreatedEntities": "Созданные записи будут автоматически отслеживаться, независимо от того, кому они назначены.",
+    "followCreatedEntityTypeList": "Записи выбранных типов сущностей будут автоматически отслеживаться, независимо от того, кому они назначены. Используйте этот параметр, чтобы отслеживать только определенные типы сущностей."
+  },
+  "tabFields": {
+    "label": "Этикетка",
+    "iconClass": "Икона",
+    "color": "Цвет"
+  }
+}

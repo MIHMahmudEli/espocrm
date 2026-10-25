@@ -1,0 +1,9 @@
+{
+    "scriptList": [
+        "client/custom/src/web-push.js"
+    ],
+    "developerModeScriptList": [
+        "client/src/loader.js",
+        "client/custom/src/web-push.js"
+    ]
+}

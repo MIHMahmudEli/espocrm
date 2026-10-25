@@ -1,0 +1,20 @@
+[
+    "cProductServices",
+    "assignedUser",
+    "teams",
+    "createdAt",
+    "createdBy",
+    "modifiedAt",
+    "streamUpdatedAt",
+    "address",
+    "accountName",
+    "campaign",
+    "emailAddress",
+    "phoneNumber",
+    "status",
+    "source",
+    "opportunityAmountConverted",
+    "industry",
+    "targetLists",
+    "createdAccount"
+]

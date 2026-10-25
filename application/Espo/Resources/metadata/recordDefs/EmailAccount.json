@@ -1,0 +1,25 @@
+{
+    "massActions": {
+        "update": {
+            "allowed": true
+        },
+        "delete": {
+            "allowed": true
+        }
+    },
+    "createInputFilterClassNameList": [
+        "Espo\\Classes\\Record\\InboundEmail\\PasswordsInputFilter"
+    ],
+    "updateInputFilterClassNameList": [
+        "Espo\\Classes\\Record\\InboundEmail\\PasswordsInputFilter"
+    ],
+    "beforeCreateHookClassNameList": [
+        "Espo\\Classes\\RecordHooks\\EmailAccount\\BeforeCreate",
+        "Espo\\Classes\\RecordHooks\\EmailAccount\\BeforeSave",
+        "Espo\\Classes\\RecordHooks\\EmailAccount\\BeforeSaveValidateHosts"
+    ],
+    "beforeUpdateHookClassNameList": [
+        "Espo\\Classes\\RecordHooks\\EmailAccount\\BeforeSave",
+        "Espo\\Classes\\RecordHooks\\EmailAccount\\BeforeSaveValidateHosts"
+    ]
+}

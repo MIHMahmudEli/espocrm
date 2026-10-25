@@ -1,0 +1,94 @@
+{
+  "fields": {
+    "name": "Navn",
+    "emailAddress": "Epostadresse",
+    "assignToUser": "Tildel til bruker",
+    "host": "Tjener",
+    "username": "Brukernavn",
+    "password": "Passord",
+    "monitoredFolders": "Overvåkede mapper",
+    "trashFolder": "Søppelkurv-mappe",
+    "createCase": "Opprett sak",
+    "reply": "Automatisk svar",
+    "caseDistribution": "Distribusjon av sak",
+    "replyEmailTemplate": "Epostmal for svar",
+    "replyFromAddress": "Svar fra adresse",
+    "replyToAddress": "Svar til adresse",
+    "replyFromName": "Svar fra navn",
+    "targetUserPosition": "Målbrukerens posisjon",
+    "fetchSince": "Hent fra dato",
+    "addAllTeamUsers": "For alle gruppens brukere",
+    "team": "Målgruppe",
+    "teams": "Grupper",
+    "sentFolder": "Sendt-mappe",
+    "storeSentEmails": "Lager sendte eposter",
+    "useSmtp": "Bruk SMTP",
+    "smtpHost": "SMTP-tjener",
+    "smtpPort": "SMTP-tjener",
+    "smtpAuth": "SMTP-autentisering",
+    "smtpSecurity": "SMTP-sikkerhet",
+    "smtpUsername": "SMTP-brukernavn",
+    "smtpPassword": "SMTP-passord",
+    "fromName": "Fra-navn",
+    "smtpIsShared": "SMTP er delt",
+    "smtpIsForMassEmail": "SMTP er for masseutsendelse",
+    "useImap": "Hent E-post",
+    "keepFetchedEmailsUnread": "Vis hentede eposter som ulest",
+    "smtpAuthMechanism": "SMTP-Autentisering Metode",
+    "security": "Sikkerhet",
+    "groupEmailFolder": "E-postmappe for gruppe",
+    "connectedAt": "Tilkoblet kl.",
+    "excludeFromReply": "Utelat fra svar",
+    "isSystem": "Er system"
+  },
+  "tooltips": {
+    "reply": "Varsle senderen når eposten er mottatt.\n\nFor å unngå 'looping' vil det kun sendes <em>en</em> epost til mottageren innen en gitt tidsperiode.",
+    "caseDistribution": "Hvordan saker vil bli tildelt – direkte til en bruker eller til gruppen.",
+    "assignToUser": "Brukere som sakene tildeles til.",
+    "team": "Gruppes som sakene tildeles til.",
+    "teams": "Grupper som eposter tildeles til.",
+    "addAllTeamUsers": "Eposter vil vises i innboksen til alle brukere i de valgte gruppene.",
+    "targetUserPosition": "Brukere med angitt stilling vil bli tildelt saker.",
+    "monitoredFolders": "Flere mapper skal skilles med komma.",
+    "storeSentEmails": "Sendte e-poster vil bli lagret på IMAP-serveren.",
+    "useSmtp": "Muligheten for å sende E-post",
+    "groupEmailFolder": "Legg innkommende e-poster i en gruppemappe.",
+    "excludeFromReply": "Når du svarer på e-poster sendt til denne kontoens e-postadresse, vil e-postadressen ikke bli lagt til i CC.\n\nMerk at ved å aktivere denne parameteren, vil e-postadressen til denne kontoen bli eksponert for brukere som har tilgang til å sende e-poster.",
+    "isSystem": "Er systemets e-postkonto.",
+    "createCase": "Opprett saker automatisk fra innkommende e-poster.",
+    "replyToAddress": "For å rute svar til denne e-postkontoen, angi e-postadressen til denne kontoen.",
+    "smtpIsShared": "Hvis krysset av, vil brukere kunne sende e-poster ved å bruke denne SMTP-en. Tilgjengelighet styres av Roller via tillatelsen Gruppe-e-postkonto.",
+    "smtpIsForMassEmail": "Hvis krysset av, vil SMTP være tilgjengelig for masseutsendelse."
+  },
+  "links": {
+    "filters": "Filtre",
+    "emails": "Eposter",
+    "assignToUser": "Tildel til bruker",
+    "groupEmailFolder": "E-postmappe for gruppe"
+  },
+  "options": {
+    "status": {
+      "Active": "Aktive",
+      "Inactive": "Inaktive"
+    },
+    "caseDistribution": {
+      "": "Ingen",
+      "Direct-Assignment": "Direktetildeling",
+      "Least-Busy": "Minst opptatte"
+    },
+    "smtpAuthMechanism": {
+      "plain": "Klartekst",
+      "login": "Logg inn"
+    }
+  },
+  "labels": {
+    "Create InboundEmail": "Opprett epostkonto",
+    "IMAP": "IMAP-innstillinger",
+    "Actions": "Handlinger",
+    "Main": "Hovedinnstillinger"
+  },
+  "messages": {
+    "couldNotConnectToImap": "Kunne ikke koble til IMAP-tjeneren",
+    "imapNotConnected": "Kunne ikke koble til gruppe-[IMAP-konto](#InboundEmail/view/{id})."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "fields": {
+    "name": "Název",
+    "account": "Organizace",
+    "stage": "Stav",
+    "amount": "Částka",
+    "probability": "Pravděpodobnost",
+    "leadSource": "Zdrojová stopa",
+    "doNotCall": "Nevolat",
+    "closeDate": "Deadline",
+    "contacts": "Kontakty",
+    "description": "Popis",
+    "amountConverted": "Částka (konvertováno)",
+    "amountWeightedConverted": "Vážená částka",
+    "campaign": "Kampaň",
+    "originalLead": "Původní potenciál",
+    "amountCurrency": "Měna částky",
+    "contactRole": "Role kontaktu",
+    "lastStage": "Poslední fáze",
+    "contact": "Kontakt"
+  },
+  "links": {
+    "contacts": "Kontakty",
+    "documents": "Dokumenty",
+    "campaign": "Kampaň",
+    "originalLead": "Původní potenciál",
+    "contact": "Kontakt"
+  },
+  "options": {
+    "stage": {
+      "Prospecting": "Průzkum",
+      "Qualification": "Kvalifikace",
+      "Needs Analysis": "Analýza potřeb",
+      "Value Proposition": "Hodnotová nabídka",
+      "Id. Decision Makers": "Identifikace rozhodovatelů",
+      "Perception Analysis": "Analýza vnimaání",
+      "Proposal/Price Quote": "Nabídka/Cenová oferta",
+      "Negotiation/Review": "Vyjednávání/Revize",
+      "Closed Won": "Vyhráno",
+      "Closed Lost": "Ztraceno",
+      "Proposal": "Nabídka",
+      "Negotiation": "Vyjednávání"
+    }
+  },
+  "labels": {
+    "Create Opportunity": "Vytvořit příležitost"
+  },
+  "presetFilters": {
+    "open": "Otevřené",
+    "won": "Vyhráné",
+    "lost": "Ztracené"
+  }
+}

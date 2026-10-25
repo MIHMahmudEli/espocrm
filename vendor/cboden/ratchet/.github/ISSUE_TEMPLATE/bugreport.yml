@@ -1,0 +1,23 @@
+name: "🐛 Bug Report"
+description: "Found a bug in our project? Create a report to help us improve."
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for helping improve Ratchet by reporting a bug! 
+    Please check [existing Issues](https://github.com/ratchetphp/Ratchet/issues) before submitting."
+  
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Reproduction Steps"
+      description: "Exact steps to reproduce (include code samples)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Runtime Environment"
+      placeholder: "PHP version, Ratchet version, etc."
+    validations:
+      required: true

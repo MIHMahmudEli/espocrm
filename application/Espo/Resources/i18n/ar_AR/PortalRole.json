@@ -1,0 +1,15 @@
+{
+  "links": {
+    "users": "المستخدمين"
+  },
+  "labels": {
+    "Access": "طريقة الدخول",
+    "Create PortalRole": "إنشاء دور علي البوابة",
+    "Scope Level": "مستوى النطاق",
+    "Field Level": "مستوي الخانات"
+  },
+  "fields": {
+    "exportPermission": "إذن التصدير",
+    "massUpdatePermission": "إذن التحديث الشامل"
+  }
+}

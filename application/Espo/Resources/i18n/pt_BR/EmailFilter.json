@@ -1,0 +1,35 @@
+{
+  "fields": {
+    "from": "De",
+    "to": "Para",
+    "subject": "Assunto",
+    "bodyContains": "Corpo contém",
+    "action": "Ação",
+    "isGlobal": "É Global",
+    "emailFolder": "Pasta",
+    "groupEmailFolder": "Pasta de Email do Grupo",
+    "markAsRead": "Marcar como Lido",
+    "bodyContainsAll": "Corpo Contém Tudo"
+  },
+  "labels": {
+    "Create EmailFilter": "Criar filtro de email"
+  },
+  "options": {
+    "action": {
+      "Skip": "Ignorar",
+      "Move to Folder": "Colocar na Pasta",
+      "None": "Nenhum",
+      "Move to Group Folder": "Colocar na Pasta de Grupo"
+    }
+  },
+  "tooltips": {
+    "name": "Dê ao filtro um nome descritivo.",
+    "bodyContains": "O corpo do e-mail contém qualquer uma das palavras ou frases especificadas.",
+    "isGlobal": "Aplica este filtro a todos os emails que chegam ao sistema.",
+    "bodyContainsAll": "Um corpo de e-mail contém todas as palavras ou frases especificadas."
+  },
+  "links": {
+    "emailFolder": "Pasta",
+    "groupEmailFolder": "Pasta de Email do Grupo"
+  }
+}

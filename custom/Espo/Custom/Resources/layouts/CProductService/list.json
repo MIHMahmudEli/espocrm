@@ -1,0 +1,22 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "category",
+        "width": 16
+    },
+    {
+        "name": "type",
+        "width": 16
+    },
+    {
+        "name": "price",
+        "width": 16
+    },
+    {
+        "name": "status",
+        "width": 16
+    }
+]

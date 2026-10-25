@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "roles": "Rollen",
+    "positionList": "Positionsbezeichnungen",
+    "layoutSet": "Layout-Satz",
+    "workingTimeCalendar": "Arbeitszeitkalender",
+    "userRole": "Benutzerrolle"
+  },
+  "links": {
+    "users": "Benutzer",
+    "notes": "Notizen",
+    "roles": "Rollen",
+    "inboundEmails": "Gruppen-E-Mail-Konten",
+    "layoutSet": "Layout-Satz",
+    "workingTimeCalendar": "Arbeitszeitkalender",
+    "groupEmailFolders": "E-Mail-Gruppenordner"
+  },
+  "labels": {
+    "Create Team": "Team erstellen"
+  },
+  "tooltips": {
+    "workingTimeCalendar": "Ein Kalender wird auf Benutzer angewendet, die dieses Team als Standardteam festgelegt haben.",
+    "layoutSet": "Bietet die Möglichkeit, von den Standard-Layouts abweichende Layouts zu haben. Der Layout-Satz wird auf Benutzer angewendet, die dieses Team als Standardteam festgelegt haben.",
+    "roles": "Zugriffsrollen. Benutzer dieses Teams erhalten die Zugriffskontrollrechte aus den angegebenen Rollen.",
+    "positionList": "Verfügbare Positionen in diesem Team. Zum Beispiel Verkäufer, Manager usw."
+  }
+}

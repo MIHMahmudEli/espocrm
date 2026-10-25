@@ -1,0 +1,15 @@
+{
+    "stream": true,
+    "disabled": false,
+    "kanbanStatusIgnoreList": null,
+    "stars": false,
+    "preserveAuditLog": false,
+    "duplicateCheckFieldList": [
+        "name",
+        "emailAddress"
+    ],
+    "collaborators": false,
+    "assignedUsers": false,
+    "pipelines": false,
+    "lockable": false
+}

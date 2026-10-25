@@ -1,0 +1,15 @@
+{
+  "labels": {
+    "Primary": "Основен",
+    "Opted Out": "Отказал се",
+    "Invalid": "Невалиден"
+  },
+  "fields": {
+    "optOut": "Отписал се",
+    "invalid": "невалиден",
+    "lower": "Име с малки букви"
+  },
+  "presetFilters": {
+    "orphan": "сирак"
+  }
+}

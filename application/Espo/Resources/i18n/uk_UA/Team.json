@@ -1,0 +1,25 @@
+{
+  "fields": {
+    "name": "Ім'я",
+    "roles": "Ролі",
+    "positionList": "Список посад",
+    "layoutSet": "Набір макетів",
+    "workingTimeCalendar": "Календар робочого часу",
+    "userRole": "Роль користувача"
+  },
+  "links": {
+    "users": "Користувачі",
+    "notes": "Нотатки",
+    "roles": "Ролі",
+    "inboundEmails": "Групові поштові скриньки",
+    "layoutSet": "Набір макетів",
+    "workingTimeCalendar": "Календар робочого часу",
+    "groupEmailFolders": "Групові папки ел. пошти"
+  },
+  "labels": {
+    "Create Team": "Створити команду"
+  },
+  "tooltips": {
+    "workingTimeCalendar": "Календар буде застосовано до користувачів, для яких цю команду встановлено як команду за умовчанням."
+  }
+}

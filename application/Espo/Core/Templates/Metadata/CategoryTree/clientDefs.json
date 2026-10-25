@@ -1,0 +1,46 @@
+{
+    "controller": "controllers/record-tree",
+    "collection": "collections/tree",
+    "menu": {
+        "listTree": {
+            "buttons": [
+                {
+                    "label": "List View",
+                    "link": "#{entityType}/list",
+                    "acl": "read",
+                    "style": "default"
+                },
+                {
+                    "labelTranslation": "Global.scopeNamesPlural.{subjectEntityType}",
+                    "link": "#{subjectEntityType}",
+                    "acl": "read",
+                    "style": "default",
+                    "aclScope": "{subjectEntityType}"
+                }
+            ]
+        },
+        "list": {
+            "buttons": [
+                {
+                    "label": "Tree View",
+                    "link": "#{entityType}",
+                    "acl": "read",
+                    "style": "default"
+                },
+                {
+                    "labelTranslation": "Global.scopeNamesPlural.{subjectEntityType}",
+                    "link": "#{subjectEntityType}",
+                    "acl": "read",
+                    "style": "default",
+                    "aclScope": "{subjectEntityType}"
+                }
+            ]
+        }
+    },
+    "relationshipPanels": {
+        "children": {
+            "selectDisabled": true,
+            "unlinkDisabled": true
+        }
+    }
+}

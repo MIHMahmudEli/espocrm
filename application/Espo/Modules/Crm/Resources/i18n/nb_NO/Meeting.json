@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "name": "Navn",
+    "parent": "Forelder",
+    "dateStart": "Startdato",
+    "dateEnd": "Sluttdato",
+    "duration": "Varighet",
+    "description": "Beskrivelse",
+    "users": "Brukere",
+    "contacts": "Kontakter",
+    "leads": "Ledetråder",
+    "reminders": "Påminnelser",
+    "account": "Konto",
+    "acceptanceStatus": "Akseptstatus",
+    "dateStartDate": "Startdato (hele dagen)",
+    "dateEndDate": "Sluttdato (hele dagen)",
+    "isAllDay": "Er heldags",
+    "sourceEmail": "Kilde-e-post",
+    "joinUrl": "Bli med-URL"
+  },
+  "options": {
+    "status": {
+      "Planned": "Planlagt",
+      "Held": "Gjennomført",
+      "Not Held": "Ikke gjennomført"
+    },
+    "acceptanceStatus": {
+      "None": "Ingen",
+      "Accepted": "Akseptert",
+      "Declined": "Avslått",
+      "Tentative": "Førsøkt"
+    }
+  },
+  "massActions": {
+    "setHeld": "Merk som gjennomført",
+    "setNotHeld": "Merk som ikke gjennomført"
+  },
+  "labels": {
+    "Create Meeting": "Opprett møte",
+    "Set Held": "Merk som gjennomført",
+    "Set Not Held": "Merk som ikke gjennomført",
+    "Send Invitations": "Send invitasjoner",
+    "on time": "på tiden",
+    "before": "før",
+    "All-Day": "Heldags",
+    "Send Cancellation": "Send avlysning",
+    "Acceptance": "Aksept"
+  },
+  "presetFilters": {
+    "planned": "Planlagt",
+    "held": "Gjennomført",
+    "todays": "Dagens"
+  },
+  "messages": {
+    "nothingHasBeenSent": "Ingenting ble sendt",
+    "selectAcceptanceStatus": "Angi akseptstatusen din.",
+    "sendInvitationsToSelectedAttendees": "Invitasjons-e-poster vil bli sendt til de valgte deltakerne.",
+    "sendCancellationsToSelectedAttendees": "Avlysnings-e-poster vil bli sendt til de valgte deltakerne."
+  }
+}

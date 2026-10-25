@@ -1,0 +1,47 @@
+{
+    "controller": "controllers/api-user",
+    "views": {
+        "detail": "views/user/detail",
+        "list": "views/api-user/list"
+    },
+    "recordViews": {
+        "list": "views/user/record/list",
+        "detail": "views/user/record/detail",
+        "edit":"views/user/record/edit",
+        "detailSmall":"views/user/record/detail-quick",
+        "editSmall":"views/user/record/edit-quick"
+    },
+    "defaultSidePanelFieldLists": {
+        "detail": [
+            "avatar",
+            "createdAt",
+            "lastAccess"
+        ],
+        "detailSmall": [
+            "avatar",
+            "createdAt"
+        ],
+        "edit": [
+            "avatar"
+        ],
+        "editSmall": [
+            "avatar"
+        ]
+    },
+    "filterList": [
+    ],
+    "boolFilterList": [],
+    "menu": {
+        "list": {
+            "dropdown": [
+                {
+                    "name": "openApiSpec",
+                    "label": "OpenAPI spec",
+                    "link": "api/v1/OpenApi",
+                    "handler": "handlers/api-user/open-api-spec-action",
+                    "actionFunction": "process"
+                }
+            ]
+        }
+    }
+}

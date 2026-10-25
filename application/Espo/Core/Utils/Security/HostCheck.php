@@ -1,0 +1,244 @@
+<?php
+/************************************************************************
+ * This file is part of EspoCRM.
+ *
+ * EspoCRM – Open Source CRM application.
+ * Copyright (C) 2014-2026 EspoCRM, Inc.
+ * Website: https://www.espocrm.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "EspoCRM" word.
+ ************************************************************************/
+
+namespace Espo\Core\Utils\Security;
+
+use const DNS_A;
+use const FILTER_FLAG_NO_PRIV_RANGE;
+use const FILTER_FLAG_NO_RES_RANGE;
+use const FILTER_FLAG_HOSTNAME;
+use const FILTER_VALIDATE_DOMAIN;
+use const FILTER_VALIDATE_IP;
+
+class HostCheck
+{
+    /**
+     * Validates the string is a host and it's not internal.
+     * If not a host, returns false.
+     *
+     * @since 9.3.4
+     */
+    public function isHostAndNotInternal(string $host): bool
+    {
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return $this->ipAddressIsNotInternal($host);
+        }
+
+        if (!$this->isDomainHost($host)) {
+            return false;
+        }
+
+        $ipAddresses = $this->getHostIpAddresses($host);
+
+        if ($ipAddresses === []) {
+            return false;
+        }
+
+        foreach ($ipAddresses as $idAddress) {
+            if (!$this->ipAddressIsNotInternal($idAddress)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @internal
+     * @since 9.3.4
+     */
+    public function isDomainHost(string $host): bool
+    {
+        $normalized = $this->normalizeIpAddress($host);
+
+        if ($normalized !== false && filter_var($normalized, FILTER_VALIDATE_IP)) {
+            return false;
+        }
+
+        if (!filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
+            return false;
+        }
+
+        if (!$this->hasNoNumericItem($host)) {
+            return false;
+        }
+
+        if (filter_var($host, FILTER_VALIDATE_DOMAIN)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string[]
+     * @internal
+     * @since 9.3.4
+     */
+    public function getHostIpAddresses(string $host): array
+    {
+        $records = dns_get_record($host, DNS_A + DNS_AAAA);
+
+        if (!$records) {
+            return [];
+        }
+
+        $output = [];
+
+        foreach ($records as $record) {
+            $type = $record['type'] ?? null;
+
+            if ($type === 'AAAA') {
+                /** @var ?string $idAddress */
+                $idAddress = $record['ipv6'] ?? null;
+            } else {
+                /** @var ?string $idAddress */
+                $idAddress = $record['ip'] ?? null;
+            }
+
+            if (!$idAddress) {
+                continue;
+            }
+
+            $output[] = $idAddress;
+        }
+
+        return $output;
+    }
+
+    /**
+     * @internal
+     */
+    public function ipAddressIsNotInternal(string $ipAddress): bool
+    {
+        if (str_starts_with($ipAddress, '::ffff:')) {
+            $ipAddress = substr($ipAddress, 7);
+        }
+
+        if (filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $packed = inet_pton($ipAddress);
+
+            if ($packed !== false && strlen($packed) === 16) {
+                if (str_starts_with($packed, "\x00\x64\xff\x9b\x00\x00\x00\x00\x00\x00\x00\x00")) {
+                    // NAT64 64:ff9b::/96
+                    $ipAddress = inet_ntop(substr($packed, 12, 4));
+                } else if ($packed[0] === "\x20" && $packed[1] === "\x02") {
+                    // 6to4 2002::/16
+                    $ipAddress = inet_ntop(substr($packed, 2, 4));
+                } else if (str_starts_with($packed, "\x20\x01\x00\x00")) {
+                    // Teredo 2001:0000::/32
+                    $ipAddress = inet_ntop(substr($packed, 12, 4) ^ "\xff\xff\xff\xff");
+                }
+            }
+        }
+
+        return (bool) filter_var(
+            $ipAddress,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        );
+    }
+
+    private function normalizeIpAddress(string $ip): string|false
+    {
+        if (!str_contains($ip, '.')) {
+            return self::normalizePart($ip);
+        }
+
+        $parts = explode('.', $ip);
+
+        if (count($parts) !== 4) {
+            return false;
+        }
+
+        $result = [];
+
+        foreach ($parts as $part) {
+            if (preg_match('/^0x[0-9a-f]+$/i', $part)) {
+                $num = hexdec($part);
+            } else if (preg_match('/^0[0-7]+$/', $part) && $part !== '0') {
+                $num = octdec($part);
+            } else if (ctype_digit($part)) {
+                $num = (int)$part;
+            } else {
+                return false;
+            }
+
+            if ($num < 0 || $num > 255) {
+                return false;
+            }
+
+            $result[] = $num;
+        }
+
+        return implode('.', $result);
+    }
+
+    private static function normalizePart(string $ip): string|false
+    {
+        if (preg_match('/^0x[0-9a-f]+$/i', $ip)) {
+            $num = hexdec($ip);
+        } elseif (preg_match('/^0[0-7]+$/', $ip) && $ip !== '0') {
+            $num = octdec($ip);
+        } elseif (ctype_digit($ip)) {
+            $num = (int) $ip;
+        } else {
+            return false;
+        }
+
+        if ($num < 0 || $num > 0xFFFFFFFF) {
+            return false;
+        }
+
+        $num = (int) $num;
+
+        return long2ip($num);
+    }
+
+
+    private function hasNoNumericItem(string $host): bool
+    {
+        $hasNoNumeric = false;
+
+        foreach (explode('.', $host) as $it) {
+            if (!is_numeric($it) && !self::isHex($it)) {
+                $hasNoNumeric = true;
+
+                break;
+            }
+        }
+
+        return $hasNoNumeric;
+    }
+
+    private function isHex(string $value): bool
+    {
+        return preg_match('/^0x[0-9a-fA-F]+$/', $value) === 1;
+    }
+}

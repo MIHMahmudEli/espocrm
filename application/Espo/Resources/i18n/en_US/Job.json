@@ -1,0 +1,29 @@
+{
+    "fields": {
+        "status": "Status",
+        "executeTime": "Execute At",
+        "executedAt": "Executed At",
+        "startedAt": "Started At",
+        "attempts": "Attempts Left",
+        "failedAttempts": "Failed Attempts",
+        "scheduledJob": "Scheduled Job",
+        "scheduledJobJob": "Scheduled Job Name",
+        "data": "Data",
+        "targetType": "Target Type",
+        "targetId": "Target ID",
+        "number": "Number",
+        "queue": "Queue",
+        "group": "Group",
+        "className": "Class Name",
+        "targetGroup": "Target Group",
+        "job": "Job"
+    },
+    "options": {
+        "status": {
+            "Pending": "Pending",
+            "Success": "Success",
+            "Running": "Running",
+            "Failed": "Failed"
+        }
+    }
+}

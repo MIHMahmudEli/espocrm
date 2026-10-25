@@ -1,0 +1,19 @@
+{
+    "scopeNames": {
+        "CProductService": "ProductService"
+    },
+    "scopeNamesPlural": {
+        "CProductService": "ProductServices"
+    },
+    "messages": {
+        "webPushEnable": "Enable desktop notifications",
+        "webPushOn": "Desktop notifications are on. Click to turn them off for this browser.",
+        "webPushBlocked": "Notifications are blocked for this site. Allow them in your browser's site settings for this page, then reload.",
+        "webPushNotConfigured": "Web push is not configured on this server, so desktop notifications are unavailable.",
+        "webPushUnsupported": "This browser does not support desktop notifications.",
+        "webPushEnabled": "Desktop notifications enabled for this browser.",
+        "webPushDisabled": "Desktop notifications disabled for this browser.",
+        "webPushNotEnabled": "Notifications were not enabled.",
+        "webPushBusy": "Updating desktop notification settings..."
+    }
+}

@@ -1,0 +1,72 @@
+{
+  "fields": {
+    "dateFormat": "Datumsformat",
+    "timeFormat": "Zeitformat",
+    "timeZone": "Zeitzone",
+    "weekStart": "Erster Tag der Woche",
+    "thousandSeparator": "Tausendertrennzeichen",
+    "decimalMark": "Dezimaltrennzeichen",
+    "defaultCurrency": "Standardwährung",
+    "currencyList": "Währungsliste",
+    "language": "Sprache",
+    "exportDelimiter": "Export Trennzeichen",
+    "signature": "E-Mail Signatur",
+    "dashboardTabList": "Menüliste",
+    "tabList": "Menüliste",
+    "defaultReminders": "Vorgaben für Benachrichtigungen",
+    "theme": "Design",
+    "useCustomTabList": "Benutzerdefinierte Menüliste",
+    "receiveAssignmentEmailNotifications": "E-Mail Nachrichten bei Zuweisungen erhalten",
+    "receiveMentionEmailNotifications": "E-Mail-Benachrichtigungen über Erwähnungen in Beiträgen",
+    "receiveStreamEmailNotifications": "E-Mail-Benachrichtigungen über Beiträge und Statusaktualisierungen",
+    "emailReplyForceHtml": "E-Mail Antwort als HTML",
+    "autoFollowEntityTypeList": "Automatisches Abonnieren",
+    "emailReplyToAllByDefault": "Standardmäßig allen antworten",
+    "doNotFillAssignedUserIfNotRequired": "Zugewiesenen Benutzer bei der Erstellung des Datensatzes nicht vorab ausfüllen",
+    "followEntityOnStreamPost": "Der Benutzer abonniert die Einträge nach dem Posten in dessen Ereignisverlauf",
+    "followCreatedEntities": "Eigene Einträge abonnieren",
+    "followCreatedEntityTypeList": "Der Benutzer abonniert erstellte Einträge bestimmter Entitätstypen automatisch",
+    "emailUseExternalClient": "Verwende einen externen E-Mail-Client",
+    "assignmentNotificationsIgnoreEntityTypeList": "In-App-Benachrichtigungen über Zuweisungen",
+    "assignmentEmailNotificationsIgnoreEntityTypeList": "E-Mail-Benachrichtigungen über Zuweisungen",
+    "dashboardLocked": "Dashboard sperren",
+    "textSearchStoringDisabled": "Textfilterspeicherung deaktivieren",
+    "calendarSlotDuration": "Kalender - Dauer des Zeitfensters",
+    "calendarScrollHour": "Kalender - Zur Stunde springen",
+    "defaultRemindersTask": "Standard-Erinnerungen für Aufgaben",
+    "addCustomTabs": "Benutzerdefinierte Registerkarten hinzufügen",
+    "reactionNotifications": "In-App-Benachrichtigungen über Reaktionen",
+    "pageContentWidth": "Inhaltsbreite",
+    "reactionNotificationsNotFollowed": "Benachrichtigungen über Reaktionen auf nicht verfolgte Datensätze",
+    "followAsCollaborator": "Automatisches Folgen, wenn als Mitwirkender hinzugefügt",
+    "notificationGrouping": "Gruppenbenachrichtigungen",
+    "notificationSound": "Benachrichtigungston"
+  },
+  "options": {
+    "weekStart": {
+      "0": "Sonntag",
+      "1": "Montag"
+    },
+    "pageContentWidth": {
+      "Wide": "Breit"
+    }
+  },
+  "labels": {
+    "Notifications": "Benachrichtigungen",
+    "User Interface": "Benutzeroberfläche",
+    "Misc": "Verschiedenes",
+    "Locale": "Lokalisierungs-Einstellungen",
+    "Reset Dashboard to Default": "Dashboard auf Standard zurücksetzen"
+  },
+  "tooltips": {
+    "autoFollowEntityTypeList": "Der Benutzer abonniert automatisch alle neuen Einträge der gewählten Entitätstypen, sieht Neuigkeiten im Ereignisverlauf und erhält Benachrichtigungen.",
+    "addCustomTabs": "Wenn diese Option aktiviert ist, werden benutzerdefinierte Registerkarten an die Standardregisterkarten angehängt. Andernfalls werden benutzerdefinierte Registerkarten anstelle der Standardregisterkarten verwendet.",
+    "doNotFillAssignedUserIfNotRequired": "Beim Anlegen eines neuen Datensatzes wird der zugewiesene Benutzer nicht automatisch mit dem eigenen Benutzer vorausgefüllt.  Wenn das Feld „Zugewiesener Benutzer“ erforderlich ist, hat dieser Parameter keine Auswirkung.",
+    "followCreatedEntities": "Erstellte Datensätze werden automatisch abonniert, unabhängig davon, wem sie zugewiesen wurden.",
+    "followCreatedEntityTypeList": "Datensätze der ausgewählten Entitätstypen werden automatisch abonniert, unabhängig davon, wem sie zugewiesen sind. Verwenden Sie diesen Parameter, um nur bestimmte Entitätstypen zu abonnieren."
+  },
+  "tabFields": {
+    "label": "Bezeichnung",
+    "color": "Farbe"
+  }
+}

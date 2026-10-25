@@ -1,0 +1,42 @@
+{
+    "fields": {
+        "category": "Category",
+        "type": "Type",
+        "price": "Price",
+        "priceCurrency": "Price (Currency)",
+        "priceConverted": "Price (Converted)",
+        "status": "Status",
+        "calls": "Calls",
+        "leads": "Leads"
+    },
+    "links": {
+        "calls": "Calls",
+        "leads": "Leads"
+    },
+    "labels": {
+        "Create CProductService": "Create ProductService",
+        "selectProductService": "Select Product Service",
+        "selectProductServiceMessage": "This lead is linked to more than one product service. Select the one(s) to add to this call.",
+        "selectProductServiceMessageFor": "This lead ({lead}) is linked to more than one product service. Select the one(s) to add to this call."
+    },
+    "options": {
+        "category": {
+            "Software": "Software",
+            "Hardware": "Hardware",
+            "Service": "Service",
+            "Consulting": "Consulting",
+            "Other": "Other"
+        },
+        "type": {
+            "Product": "Product",
+            "Service": "Service",
+            "Package": "Package",
+            "Subscription": "Subscription"
+        },
+        "status": {
+            "Active": "Active",
+            "Inactive": "Inactive",
+            "Discontinued": "Discontinued"
+        }
+    }
+}

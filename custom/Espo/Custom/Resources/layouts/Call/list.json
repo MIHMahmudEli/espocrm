@@ -1,0 +1,27 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "parent",
+        "width": 22
+    },
+    {
+        "name": "cProductServices",
+        "width": 16,
+        "notSortable": true
+    },
+    {
+        "name": "status",
+        "width": 15
+    },
+    {
+        "name": "dateStart",
+        "width": 15
+    },
+    {
+        "name": "assignedUser",
+        "width": 15
+    }
+]

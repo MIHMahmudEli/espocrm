@@ -1,0 +1,25 @@
+{
+	"Standard": [
+	    {
+	    	"name": "My Espo",
+		    "layout": [
+                {
+                    "id": "default-activities",
+                    "name": "Activities",
+                    "x": 2,
+                    "y": 2,
+                    "width": 2,
+                    "height": 4
+                },
+                {
+                    "id": "default-stream",
+                    "name": "Stream",
+                    "x": 0,
+                    "y": 0,
+                    "width": 2,
+                    "height": 4
+                }
+		    ]
+		}
+	]
+}

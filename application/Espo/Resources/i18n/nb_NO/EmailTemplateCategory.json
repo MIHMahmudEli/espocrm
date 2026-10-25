@@ -1,0 +1,14 @@
+{
+  "labels": {
+    "Create EmailTemplateCategory": "Opprett kategori",
+    "Manage Categories": "Administrer kategorier",
+    "EmailTemplates": "Epostmaler"
+  },
+  "fields": {
+    "order": "Sortering",
+    "childList": "Underliste"
+  },
+  "links": {
+    "emailTemplates": "Epostmaler"
+  }
+}

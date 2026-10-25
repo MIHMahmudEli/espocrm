@@ -1,0 +1,12 @@
+[
+    {
+        "rows": [
+            [{"name":"name"}],
+            [{"name": "account"}],
+            [{"name": "stage"}, {"name": "closeDate"}],
+            [{"name": "amount"}],
+            [{"name": "contacts"}],
+            [{"name": "description"}]
+        ]
+    }
+]

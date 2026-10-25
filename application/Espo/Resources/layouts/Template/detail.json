@@ -1,0 +1,51 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "status"
+                }
+            ],
+            [
+                {
+                    "name": "entityType"
+                },
+                false
+            ],
+            [{"name": "variables", "view": "views/template/fields/variables"}],
+            [{"name":"body"}]
+        ]
+    },
+    {
+        "rows": [
+            [{"name":"pageOrientation"}, {"name":"pageFormat"}],
+            [{"name":"pageWidth"}, {"name":"pageHeight"}],
+            [{"name":"fontFace"}, false]
+        ]
+    },
+    {
+        "rows": [
+            [false, {"name":"topMargin"}, false],
+            [{"name":"leftMargin"}, false, {"name":"rightMargin"}],
+            [false, {"name":"bottomMargin"}, false]
+        ]
+    },
+    {
+        "rows": [
+            [{"name": "title"}, {"name": "filename"}],
+            [{"name":"printHeader"}, {"name":"headerPosition"}],
+            [{"name":"header"}],
+            [{"name":"printFooter"}, {"name":"footerPosition"}],
+            [{"name":"footer"}],
+            [{"name": "style"}]
+        ]
+    },
+    {
+        "rows": [
+            [{"name": "description"}]
+        ]
+    }
+]

@@ -1,0 +1,43 @@
+﻿# Environment and credential files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+
+# EspoCRM runtime data, logs, and caches
+/data/logs/*
+!/data/logs/.gitkeep
+/data/cache/*
+!/data/cache/.gitkeep
+/data/upload/*
+!/data/upload/.gitkeep
+/data/tmp/*
+!/data/tmp/.gitkeep
+/data/preferences/*
+/data/.backup/*
+
+# EspoCRM instance-specific configuration files
+/data/config.php
+/data/config-internal.php
+/data/config-override.php
+/data/config-internal-override.php
+/data/state.php
+/data/webpush-config.php
+/data/webpush-config.php.lock
+
+# Build & dependency artifacts
+/build/
+/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS and Editor metadata
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+.idea/
+.vscode/

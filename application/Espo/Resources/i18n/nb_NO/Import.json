@@ -1,0 +1,111 @@
+{
+  "labels": {
+    "Revert Import": "Reversér import",
+    "Return to Import": "Tilbake til import",
+    "Run Import": "Kjør import",
+    "Back": "Tilbake",
+    "Field Mapping": "Feltstyring",
+    "Default Values": "Forvalgte verdier",
+    "Add Field": "Legg til felt",
+    "Created": "Opprettet",
+    "Updated": "Oppdatert",
+    "Result": "Resultat",
+    "Show records": "Vis oppføring",
+    "Remove Duplicates": "Fjern duplikater",
+    "importedCount": "Importert (antall)",
+    "duplicateCount": "Duplikater (antall)",
+    "updatedCount": "Oppdatert (antall)",
+    "Create Only": "Bare opprett",
+    "Create and Update": "Opprett & oppdater",
+    "Update Only": "Bare oppdater",
+    "Update by": "Oppdatert av",
+    "Set as Not Duplicate": "Endre til 'ikke duplikat'",
+    "File (CSV)": "Fil (CSV)",
+    "First Row Value": "Verdi for første rad",
+    "Skip": "Hopp over",
+    "Header Row Value": "Verdi for overskriftsrad",
+    "Field": "Felt",
+    "What to Import?": "Hva skal importeres?",
+    "Entity Type": "Enhetstype",
+    "What to do?": "Hva må gjøres?",
+    "Header Row": "Overskriftsrad",
+    "Person Name Format": "Format for personnavn",
+    "John Smith": "Ola Nordmann",
+    "Smith John": "Nordmann Ola",
+    "Smith, John": "Nordmann, Ola",
+    "Field Delimiter": "Skilletegn for felt",
+    "Date Format": "Datoformat",
+    "Decimal Mark": "Desimaltegn",
+    "Text Qualifier": "Tekstkvalifisering",
+    "Time Format": "Tidsformat",
+    "Currency": "Valuta",
+    "Preview": "Forhåndsvisning",
+    "Next": "Neste",
+    "Step 1": "Steg 1",
+    "Step 2": "Steg 2",
+    "Double Quote": "Dobbelt anførselstegn",
+    "Single Quote": "Enkelt anførselstegn",
+    "Imported": "Importert",
+    "Duplicates": "Duplikater",
+    "Skip searching for duplicates": "Dropp å søke etter duplikater",
+    "Timezone": "Tidssone",
+    "Remove Import Log": "Fjern importerings log",
+    "New Import": "Ny import",
+    "Import Results": "Importresultater",
+    "Silent Mode": "Stillemodus",
+    "New import with same params": "Ny import med samme parametere",
+    "Run Manually": "Kjør manuelt",
+    "Export": "Eksporter",
+    "Parameters": "Parametere"
+  },
+  "messages": {
+    "utf8": "Bør være UTF-8-kodet",
+    "duplicatesRemoved": "Duplikater fjernet",
+    "inIdle": "Kjør når kapasitet er ledig (for store mengder data, via cron)",
+    "revert": "Dette vil fjerne alle importerte poster permanent.",
+    "removeDuplicates": "Dette vil permanent fjerne alle importerte poster som ble gjenkjent som duplikater.",
+    "confirmRevert": "Dette vil fjerne alle importerte poster permanent. Er du sikker?",
+    "confirmRemoveDuplicates": "Dette vil permanent fjerne alle importerte poster som ble gjenkjent som duplikater. Er du sikker?",
+    "removeImportLog": "Dette vil fjerne importloggen. Alle importerte poster vil bli beholdt. Bruk dette hvis du er sikker på at importen er i orden.",
+    "confirmRemoveImportLog": "Dette vil fjerne importloggen. Alle importerte poster vil bli beholdt. Du vil ikke kunne angre importresultatene. Er du sikker?",
+    "importRunning": "Import pågår...",
+    "noErrors": "Ingen feil"
+  },
+  "fields": {
+    "file": "Fil",
+    "entityType": "Enhetstype",
+    "imported": "Importerte oppføringer",
+    "duplicates": "Duplikatoppføringer",
+    "updated": "Oppdaterte oppføringer"
+  },
+  "options": {
+    "status": {
+      "Failed": "Feilet",
+      "In Process": "Behandles",
+      "Complete": "Komplett",
+      "Standby": "Ventemodus",
+      "Pending": "Venter"
+    },
+    "personNameFormat": {
+      "f l": "Fornavn Etternavn",
+      "l f": "Etternavn Fornavn",
+      "f m l": "Fornavn Melomnavn Etternavn",
+      "l f m": "Etternavn Fornavn Mellomnavn",
+      "l, f": "Etternavn, fornavn"
+    }
+  },
+  "strings": {
+    "commandToRun": "Kommando å kjøre (fra CLI)",
+    "saveAsDefault": "Lagre som standard"
+  },
+  "tooltips": {
+    "manualMode": "Hvis avkrysset, må du kjøre importen manuelt fra CLI. Kommandoen vil bli vist etter at importen er satt opp.",
+    "silentMode": "De fleste etter-lagring-skript vil bli hoppet over, strømnotater vil ikke bli opprettet. Importen vil kjøre raskere."
+  },
+  "links": {
+    "errors": "Feil"
+  },
+  "params": {
+    "phoneNumberCountry": "Telefonlandskode"
+  }
+}

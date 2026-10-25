@@ -1,0 +1,185 @@
+<?php
+/************************************************************************
+ * This file is part of EspoCRM.
+ *
+ * EspoCRM – Open Source CRM application.
+ * Copyright (C) 2014-2026 EspoCRM, Inc.
+ * Website: https://www.espocrm.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "EspoCRM" word.
+ ************************************************************************/
+
+namespace Espo\Core\HttpClient;
+
+use Espo\Core\HttpClient\Exceptions\ConnectException;
+use Espo\Core\HttpClient\Exceptions\NotAllowedInternalHost;
+use Espo\Core\HttpClient\Exceptions\TooManyRedirectsException;
+use Espo\Core\Utils\Security\UrlCheck;
+use GuzzleHttp;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
+
+class Client
+{
+    private const int MAX_REDIRECT_NUMBER = 5;
+
+    /**
+     * To be instantiated with the ClientFactory.
+     *
+     * @internal
+     */
+    public function __construct(
+        private Options $options,
+        private UrlCheck $urlCheck,
+    ) {}
+
+    /**
+     * Send a request. Does not throw exceptions on error responses.
+     *
+     * @throws TooManyRedirectsException
+     * @throws ConnectException
+     */
+    public function send(RequestInterface $request): ResponseInterface
+    {
+        $client = $this->prepareGuzzleClient();
+
+        try {
+            return $client->send($request);
+        } catch (GuzzleHttp\Exception\ConnectException $e) {
+            Util::handleConnectException($e);
+        } catch (GuzzleHttp\Exception\TooManyRedirectsException $e) {
+            throw new TooManyRedirectsException(previous: $e);
+        } catch (GuzzleHttp\Exception\GuzzleException $e) {
+            throw new RuntimeException(previous: $e);
+        }
+    }
+
+    /**
+     * Send a request in async.
+     */
+    public function sendAsync(RequestInterface $request): Promise
+    {
+        $client = $this->prepareGuzzleClient();
+
+        $promise = $client->sendAsync($request);
+
+        return new Promise($promise);
+    }
+
+    /**
+     * @param string[] $allowed
+     * @throws NotAllowedInternalHost
+     */
+    private function checkUrl(string $url, array $allowed): void
+    {
+        if (
+            !Util::matchUrlToAddressList($url, $allowed) &&
+            !$this->urlCheck->isUrlAndNotInternal($url)
+        ) {
+            throw new NotAllowedInternalHost("Not allowed internal host in '$url'.");
+        }
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function prepareOptions(): array
+    {
+        $options = [
+            'protocols' => array_map(
+                fn (Protocol $protocol) => $protocol->value,
+                $this->options->protocols
+            ),
+            'allow_redirects' => false,
+            'http_errors' => false,
+        ];
+
+        if ($this->options->redirect->allow) {
+            $options['allow_redirects'] = [
+                'max' => $this->options->redirect->maxNumber ?? self::MAX_REDIRECT_NUMBER,
+                'strict' => $this->options->redirect->strict,
+                'protocols' => array_map(
+                    fn (Protocol $protocol) => $protocol->value,
+                    $this->options->redirect->protocols
+                ),
+            ];
+        }
+
+        if ($this->options->timeout !== null) {
+            $options['timeout'] = $this->options->timeout;
+        }
+
+        if ($this->options->connectTimeout !== null) {
+            $options['connect_timeout'] = $this->options->connectTimeout;
+        }
+
+        $stack = GuzzleHttp\HandlerStack::create(new GuzzleHttp\Handler\CurlHandler());
+
+        if ($this->options->internalHostRestriction->restrict) {
+            $stack->push(
+                GuzzleHttp\Middleware::mapRequest(function (RequestInterface $request) {
+                    $url = (string) $request->getUri();
+
+                    $this->checkUrl($url, $this->options->internalHostRestriction->allowed);
+
+                    return $request;
+                })
+            );
+
+            $stack->push(function (callable $handler) {
+                return function (RequestInterface $request, array $options) use ($handler) {
+                    $url = (string) $request->getUri();
+
+                    $resolve = $this->urlCheck->getCurlResolve($url);
+
+                    if ($resolve === []) {
+                        throw new NotAllowedInternalHost("Could not resolve host for '$url'.");
+                    }
+
+                    $allowed = $this->options->internalHostRestriction->allowed;
+
+                    if ($resolve !== null && !$this->urlCheck->validateCurlResolveNotInternal($resolve, $allowed)) {
+                        throw new NotAllowedInternalHost("Not allowed internal host in '$url'.");
+                    }
+
+                    if ($resolve) {
+                        $options['curl'] ??= [];
+                        $options['curl'][CURLOPT_RESOLVE] = $resolve;
+                    }
+
+                    return $handler($request, $options);
+                };
+            });
+        }
+
+        $options['handler'] = $stack;
+
+        return $options;
+    }
+
+    private function prepareGuzzleClient(): GuzzleHttp\Client
+    {
+        $options = $this->prepareOptions();
+
+        return new GuzzleHttp\Client($options);
+    }
+}

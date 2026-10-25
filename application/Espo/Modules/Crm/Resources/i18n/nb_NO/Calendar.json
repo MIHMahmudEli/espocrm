@@ -1,0 +1,23 @@
+{
+  "modes": {
+    "month": "Måned",
+    "week": "Uke",
+    "agendaWeek": "Uke",
+    "day": "Dag",
+    "agendaDay": "Dag",
+    "timeline": "Tidslinje"
+  },
+  "labels": {
+    "Today": "Idag",
+    "Create": "Opprett",
+    "Shared": "Delt",
+    "Add User": "Legg til bruker",
+    "current": "nåværende",
+    "time": "tid",
+    "User List": "Brukerliste",
+    "View Calendar": "Vis kalender",
+    "Create Shared View": "Opprett delt visning",
+    "Edit Shared View": "Rediger delt visning",
+    "Shared Mode Options": "Alternativer for delt modus"
+  }
+}
