@@ -1,7 +1,8 @@
 {
     "options": {
         "job": {
-            "CallRouteReminders": "Call Route Reminders"
+            "CallRouteReminders": "Call Route Reminders",
+            "MeetingReminders": "Meeting Reminders"
         }
     }
 }

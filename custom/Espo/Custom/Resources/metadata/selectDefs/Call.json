@@ -1,0 +1,6 @@
+{
+    "textFilterUseContainsAttributeList": [
+        "cProductServices.name"
+    ],
+    "textFilterClassName": "Espo\\Custom\\Classes\\Select\\Call\\TextFilter"
+}

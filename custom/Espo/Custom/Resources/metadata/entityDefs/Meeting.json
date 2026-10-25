@@ -9,6 +9,14 @@
             "duplicateIgnore": true,
             "isCustom": true
         },
+        "cMeetingReminderNotifiedFor": {
+            "type": "datetime",
+            "readOnly": true,
+            "orderDisabled": true,
+            "tooltip": false,
+            "duplicateIgnore": true,
+            "isCustom": true
+        },
         "parent": {
             "entityList": [
                 "Lead",

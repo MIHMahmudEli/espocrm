@@ -14,7 +14,7 @@ Two independent delivery paths share one API:
 | **A — in-app** | `NotificationService::notifyUser()` writes a `notification` row and submits a WebSocket refresh | No — visible only while a session is open |
 | **B — Web Push** | The same call forwards the payload to the push service (FCM/Mozilla), which hands it to the operating system | Yes — while the service worker is registered for that browser profile |
 
-`CallRouteReminders` and any future producer call **one** method,
+`CallRouteReminders`, `MeetingReminders` and any future producer call **one** method,
 `NotificationService::notifyUser(...)`. There is no Web Push logic inside the
 jobs, and no `setTimeout`/`setInterval`/polling anywhere in the delivery chain.
 
@@ -28,7 +28,7 @@ Nothing in this module is Windows-specific.
 custom/Espo/Custom/
   Controllers/PushSubscription.php      REST endpoints (see §6)
   ConsoleCommands/WebPushGenerateVapidKeys.php
-  Jobs/CallRouteReminders.php           producer, consumes NotificationService
+  Jobs/{CallRouteReminders,MeetingReminders}.php   producers, consume NotificationService
   Notification/NotificationService.php  the single API both paths go through
   WebPush/
     PushNotificationService.php         dispatch: subscriptions -> PushSender
@@ -43,7 +43,7 @@ custom/Espo/Custom/
     entityDefs/Preferences.json         webPushMutedCategories
     app/client.json                     scriptList
     app/clientNavbar.json               navbar toggle
-    app/scheduledJobs.json              CallRouteReminders every minute
+    app/scheduledJobs.json              call + meeting reminders every minute
     app/consoleCommands.json            web-push-generate-vapid-keys
     scopes/PushSubscription.json
 
@@ -115,8 +115,8 @@ server-owned items (HTTPS and cron) is automatic.
    php rebuild.php
    php clear_cache.php
    ```
-6. **Confirm the scheduler runs every minute.** `CallRouteReminders` is
-   registered with `* * * * *`. The cron entry EspoCRM already uses is enough:
+6. **Confirm the scheduler runs every minute.** `CallRouteReminders` and
+   `MeetingReminders` are registered with `* * * * *`. The cron entry EspoCRM already uses is enough:
 
    ```
    * * * * * php /path/to/espocrm/cron.php > /dev/null 2>&1

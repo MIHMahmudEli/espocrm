@@ -1,0 +1,7 @@
+{
+    "messages": {
+        "meetingReminder": "**Meeting Reminder**: {entityType} {entity} is starting now. Please attend the meeting.",
+        "webPushMeetingTitle": "Meeting Reminder",
+        "webPushMeetingBody": "{entity} is starting now. Please attend the meeting."
+    }
+}

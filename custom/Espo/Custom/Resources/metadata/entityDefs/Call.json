@@ -1,4 +1,10 @@
 {
+    "collection": {
+        "textFilterFields": [
+            "name",
+            "cProductServices.name"
+        ]
+    },
     "links": {
         "cProductServices": {
             "type": "hasMany",
@@ -19,6 +25,7 @@
             "type": "date",
             "required": true,
             "default": "javascript: return this.dateTime.getToday();",
+            "view": "custom:views/fields/call-date",
             "isCustom": true
         },
         "cCallTime": {
@@ -27,6 +34,7 @@
             "required": true,
             "default": "javascript: return this.dateTime.getNow(1);",
             "minuteStep": 30,
+            "view": "custom:views/fields/call-time",
             "isCustom": true
         },
         "cCallReminderNotifiedFor": {

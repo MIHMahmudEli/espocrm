@@ -4,5 +4,11 @@
         "jobClassName": "Espo\\Custom\\Jobs\\CallRouteReminders",
         "scheduling": "* * * * *",
         "isDefault": true
+    },
+    "MeetingReminders": {
+        "name": "Meeting Reminders",
+        "jobClassName": "Espo\\Custom\\Jobs\\MeetingReminders",
+        "scheduling": "* * * * *",
+        "isDefault": true
     }
 }
