@@ -14,6 +14,7 @@ This repository tracks the chronological development snapshots and version histo
 | Tag | Snapshot Source | Description |
 | :--- | :--- | :--- |
 | 1 | espocrm.zip | Initial project snapshot containing baseline EspoCRM installation and core custom modules. |
+| 2 | espocrm (2).zip | Added API probe endpoint (public/api/v1/probe.php). |
 
 ## Documentation & Diagnostics
 
