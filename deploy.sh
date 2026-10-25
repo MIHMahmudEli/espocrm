@@ -61,6 +61,12 @@ else
     fail "public/sw.js is missing"
 fi
 
+if [ -f client/custom/img/cgit-logo-192.png ]; then
+    ok "notification icon present (client/custom/img/cgit-logo-192.png)"
+else
+    fail "notification icon client/custom/img/cgit-logo-192.png is missing"
+fi
+
 step "4/7  VAPID keys"
 if [ -n "$SUBJECT" ]; then
     case "$SUBJECT" in
@@ -113,6 +119,12 @@ else
         ok "sw.js answers at $URL/sw.js"
     else
         fail "sw.js not reachable at $URL/sw.js"
+    fi
+
+    if curl -fsSIL --max-time 20 "$URL/client/custom/img/cgit-logo-192.png" >/dev/null 2>&1; then
+        ok "notification icon answers at $URL/client/custom/img/cgit-logo-192.png"
+    else
+        fail "notification icon not reachable at $URL/client/custom/img/cgit-logo-192.png"
     fi
 
     if curl -fsSIL --max-time 20 "$URL/data/webpush-config.php" >/dev/null 2>&1; then

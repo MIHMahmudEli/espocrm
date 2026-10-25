@@ -17,6 +17,7 @@ This repository tracks the chronological development snapshots and version histo
 | 2 | espocrm (2).zip | Added API probe endpoint (public/api/v1/probe.php). |
 | 3 | espocrm (3).zip | Added Lead defaults preparator handler (client/custom/src/handlers/lead/defaults-preparator.js). |
 | 4 | espocrm (4).zip | Added branding assets (logo, favicon), custom calendar themes (Dark, Glass, Hazyblue, Sakura, Violet) and templates. |
+| 5 | espocrm (5).zip | Added high-resolution branding asset (cgit-logo-192.png). |
 
 ## Documentation & Diagnostics
 

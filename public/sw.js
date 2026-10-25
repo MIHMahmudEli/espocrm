@@ -16,10 +16,10 @@
 
 'use strict';
 
-var SW_VERSION = '2026-10-04.1';
+var SW_VERSION = '2026-10-05.1';
 
 var SCOPE = self.registration.scope;
-var ICON = SCOPE + 'client/img/favicon-196.png';
+var ICON = SCOPE + 'client/custom/img/cgit-logo-192.png';
 
 var DIAG_DB = 'espocrm-web-push';
 var DIAG_STORE = 'diagnostics';
