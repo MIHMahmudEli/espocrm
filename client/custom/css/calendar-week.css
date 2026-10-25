@@ -1,0 +1,133 @@
+.calendar-toolbar .date-title span {
+    text-underline-offset: 3px;
+}
+
+.calendar-toolbar .date-title span:hover {
+    text-decoration: underline;
+}
+
+.calendar-toolbar .btn:focus-visible,
+.calendar-toolbar .date-title span:focus-visible,
+.calendar-toolbar .mode-buttons .btn:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 1px;
+}
+
+.fc .fc-button:focus-visible,
+.fc .fc-event:focus-visible,
+.fc .fc-col-header-cell-cushion:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 1px;
+}
+
+.cal-day-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: var(--4px);
+}
+
+.cal-dow {
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+.cal-dom {
+    min-width: var(--20px);
+    padding: 0 var(--4px);
+    color: var(--text-color);
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.fc .fc-col-header-cell.fc-day-today .cal-dow,
+.fc .fc-col-header-cell.fc-day-today .cal-dom {
+    color: var(--state-warning-text);
+}
+
+.calendar.fc .fc-day-today.fc-timegrid-col {
+    background-color: var(--fc-today-bg-color);
+}
+
+.calendar.fc .fc-timegrid-slot-label-cushion {
+    font-variant-numeric: tabular-nums;
+}
+
+.calendar.fc .fc-v-event .fc-event-time {
+    font-variant-numeric: tabular-nums;
+}
+
+.fc-v-event .fc-has-meta {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.fc-v-event .fc-has-meta .fc-event-title {
+    flex: 0 1 auto;
+    min-height: 0;
+    max-height: none;
+}
+
+.cal-event-meta {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: var(--3px);
+    margin-top: var(--2px);
+    overflow: hidden;
+}
+
+.cal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--3px);
+    min-width: 0;
+    max-width: 100%;
+    padding: 0 var(--4px);
+    border: 1px solid currentColor;
+    border-radius: var(--border-radius-small);
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.cal-chip i {
+    font-size: 9px;
+}
+
+.cal-chip-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+    .cal-chip {
+        font-size: 9px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .cal-day-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        line-height: 1.2;
+    }
+
+    .cal-dom {
+        min-width: 0;
+        padding: 0;
+    }
+
+    .cal-event-meta {
+        gap: var(--2px);
+    }
+
+    .cal-chip {
+        padding: 0 var(--3px);
+    }
+}

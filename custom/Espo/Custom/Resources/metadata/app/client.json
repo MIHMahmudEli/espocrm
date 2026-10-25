@@ -5,5 +5,10 @@
     "developerModeScriptList": [
         "client/src/loader.js",
         "client/custom/src/web-push.js"
-    ]
+    ],
+    "cssList": [
+        "client/custom/css/calendar-week.css"
+    ],
+    "favicon": "client/custom/img/cgit-favicon.png",
+    "faviconAlternate": "client/custom/img/cgit-favicon.ico"
 }
