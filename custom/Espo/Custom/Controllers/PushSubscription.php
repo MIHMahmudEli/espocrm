@@ -35,6 +35,7 @@ use Espo\Core\Exceptions\BadRequest;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\ORM\EntityManager;
 use Espo\Core\Utils\Config;
+use Espo\Core\Utils\DateTime as DateTimeUtil;
 use Espo\Core\Utils\Log;
 use Espo\Custom\WebPush\Base64Url;
 use Espo\Custom\WebPush\PushNotificationService;
@@ -288,6 +289,193 @@ class PushSubscription
             'success' => $success,
             'summary' => $summary,
         ];
+    }
+
+    /**
+     * One call that answers both halves of "why did this device behave
+     * differently": what the server holds for the caller, and what the
+     * caller's own service worker recorded.
+     *
+     * POST body: {"client": { … }} - the report returned by
+     * `EspoWebPush.getDiagnostics()`.
+     *
+     * Nothing secret travels in either direction: no endpoint URLs, no
+     * p256dh/auth keys, no tokens, no cookies. The push service host
+     * (`fcm.googleapis.com`, …) and the user agent are enough to tell two
+     * devices apart.
+     */
+    public function postActionDiagnostics(Request $request, Response $response): array
+    {
+        $userId = $this->requireUserId();
+
+        $data = $this->readBody($request);
+        $client = isset($data['client']) && is_array($data['client']) ? $data['client'] : [];
+
+        $this->log->info('Web Push diagnostics collected for user ' . $userId . '.');
+
+        return [
+            'server' => $this->serverDiagnostics($userId),
+            'client' => $this->sanitizeClientReport($client),
+        ];
+    }
+
+    /**
+     * Administrator view of every device across all accounts, so a working
+     * subscription can be compared with an affected one. Rows never contain
+     * the endpoint URL or the subscription keys.
+     */
+    public function getActionDevices(Request $request, Response $response): array
+    {
+        $userId = $this->requireUserId();
+
+        if (!$this->user->isAdmin()) {
+            throw new Forbidden('Administrator permission is required.');
+        }
+
+        $repository = $this->entityManager
+            ->getRDBRepository(SubscriptionStore::ENTITY_TYPE);
+
+        $requestedUserId = trim((string) $request->getQueryParam('userId'));
+
+        if ($requestedUserId !== '') {
+            $repository = $repository->where(['assignedUserId' => $requestedUserId]);
+        }
+
+        $devices = $this->describeSubscriptions($repository->find());
+
+        return [
+            'result' => 'success',
+            'count' => count($devices),
+            'devices' => $devices,
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function serverDiagnostics(string $userId): array
+    {
+        $collection = $this->entityManager
+            ->getRDBRepository(SubscriptionStore::ENTITY_TYPE)
+            ->where(['assignedUserId' => $userId])
+            ->find();
+
+        return [
+            'userId' => $userId,
+            'configured' => (new VapidKeys())->isConfigured(),
+            'enabled' => $this->config->get('webPushEnabled') !== false,
+            'subscriptionCount' => $this->store->countActiveForUser($userId),
+            'mutedCategories' => $this->preferences->mutedFor($userId),
+            'devices' => $this->describeSubscriptions($collection),
+            'checkedAt' => gmdate(DateTimeUtil::SYSTEM_DATE_TIME_FORMAT),
+        ];
+    }
+
+    /**
+     * Non-secret view of stored subscriptions. Deliberately keyed on the push
+     * service host rather than the endpoint: the endpoint URL is a bearer
+     * capability and must never leave the server.
+     *
+     * @param iterable<mixed> $collection
+     * @return array<int, array<string, mixed>>
+     */
+    private function describeSubscriptions(iterable $collection): array
+    {
+        $list = [];
+
+        foreach ($collection as $entity) {
+            if (count($list) >= 200) {
+                break;
+            }
+
+            $endpoint = (string) $entity->get('endpoint');
+            $parts = parse_url($endpoint);
+            $host = is_array($parts) && isset($parts['host']) && is_string($parts['host'])
+                ? $parts['host']
+                : null;
+
+            $expirationTime = $entity->get('expirationTime');
+            $expired = false;
+
+            if (is_string($expirationTime) && $expirationTime !== '') {
+                $timestamp = strtotime($expirationTime . ' UTC');
+                $expired = $timestamp !== false && $timestamp <= time();
+            }
+
+            $list[] = [
+                'id' => (string) $entity->getId(),
+                'userId' => (string) $entity->get('assignedUserId'),
+                'pushService' => $host,
+                'active' => $entity->get('active') !== false,
+                'expired' => $expired,
+                'createdAt' => $entity->get('createdAt'),
+                'lastUsedAt' => $entity->get('lastUsedAt'),
+                'userAgent' => $entity->get('userAgent'),
+            ];
+        }
+
+        return $list;
+    }
+
+    /**
+     * Keeps whatever the browser sent, but drops anything that could be a
+     * credential and bounds the size so the endpoint cannot be used to store
+     * arbitrary payloads.
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    private function sanitizeClientReport($value, int $depth = 0)
+    {
+        if ($depth > 3) {
+            return null;
+        }
+
+        if (is_array($value)) {
+            $cleaned = [];
+            $count = 0;
+
+            foreach ($value as $key => $item) {
+                if (++$count > 40) {
+                    break;
+                }
+
+                if (!is_string($key) || strlen($key) > 60) {
+                    continue;
+                }
+
+                if (preg_match(
+                    '/^(endpoint|endpoints|keys|p256dh|auth|authkey|token|secret|password|cookie|authorization|privatekey)$/i',
+                    $key
+                )) {
+                    continue;
+                }
+
+                $cleaned[$key] = $this->sanitizeClientReport($item, $depth + 1);
+            }
+
+            return $cleaned;
+        }
+
+        if (is_bool($value) || $value === null) {
+            return $value;
+        }
+
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
+
+        if (is_string($value)) {
+            $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value);
+
+            if (!is_string($value)) {
+                return '';
+            }
+
+            return mb_substr($value, 0, 500);
+        }
+
+        return null;
     }
 
     private function requireUserId(): string

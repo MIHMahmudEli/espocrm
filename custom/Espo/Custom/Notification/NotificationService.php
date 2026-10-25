@@ -447,6 +447,7 @@ class NotificationService
                 'url' => $data['url'] ?? '',
                 'category' => $options['category'] ?? null,
                 'tag' => $options['tag'] ?? $this->defaultTag($options, $entityType, $entityId),
+                'requireInteraction' => ($options['requireInteraction'] ?? false) === true,
             ]);
 
             $ttl = isset($options['ttl']) && is_int($options['ttl'])
@@ -473,6 +474,11 @@ class NotificationService
      * A stable tag means the OS replaces the previous notification for the
      * same logical event instead of stacking duplicates.
      *
+     * Only genuinely related notifications may share a tag: the same action,
+     * or the same record. Anything else gets *no* tag, because two unrelated
+     * notifications with one tag replace each other and the second one is
+     * then never announced.
+     *
      * @param array<string, mixed> $options
      */
     private function defaultTag(array $options, string $entityType, string $entityId): string
@@ -485,7 +491,7 @@ class NotificationService
             return $entityType . '-' . $entityId;
         }
 
-        return 'espocrm';
+        return '';
     }
 
     private function submitWebSocket(string $userId): void

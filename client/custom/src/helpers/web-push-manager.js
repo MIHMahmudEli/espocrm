@@ -140,6 +140,227 @@ define('custom:helpers/web-push-manager', [], function () {
         return uint8ArrayToUrlBase64(bytes) === serverKey;
     }
 
+    /**
+     * Asks the browser to re-check `sw.js` right now instead of waiting for
+     * the next navigation. Together with `updateViaCache: 'none'` this is
+     * what pulls a stale device onto the current worker without a hard reload.
+     */
+    function refreshServiceWorker(registration) {
+        if (!registration || typeof registration.update !== 'function') {
+            return;
+        }
+
+        try {
+            var updating = registration.update();
+
+            if (updating && typeof updating.catch === 'function') {
+                updating.catch(function () {
+                    /* Offline, or the server said no: the browser retries on
+                       the next navigation. Never surfaces to the user. */
+                });
+            }
+        } catch (error) {
+            console.warn('[web-push] service worker update check failed', error);
+        }
+    }
+
+    /* ---------------------------------------------------------- diagnostics */
+
+    var DIAG_DB = 'espocrm-web-push';
+    var DIAG_STORE = 'diagnostics';
+
+    /**
+     * Reads the record the service worker writes on every push. It only ever
+     * contains timestamps, counters, the worker version and an error name -
+     * no payload, no endpoint, no token.
+     *
+     * @return {Promise<Object|null>}
+     */
+    function readWorkerDiagnostics() {
+        return new Promise(function (resolve) {
+            var request;
+
+            try {
+                request = window.indexedDB.open(DIAG_DB, 1);
+            } catch (error) {
+                resolve(null);
+
+                return;
+            }
+
+            var settled = false;
+            var result = null;
+            var watchdog = window.setTimeout(function () {
+                finish(null);
+            }, 1000);
+
+            function finish(state) {
+                if (settled) {
+                    return;
+                }
+
+                settled = true;
+                window.clearTimeout(watchdog);
+
+                try {
+                    if (request.result) {
+                        request.result.close();
+                    }
+                } catch (ignored) {}
+
+                resolve(state);
+            }
+
+            request.onupgradeneeded = function () {
+                var db = request.result;
+
+                if (!db.objectStoreNames.contains(DIAG_STORE)) {
+                    db.createObjectStore(DIAG_STORE);
+                }
+            };
+
+            request.onerror = function () {
+                finish(null);
+            };
+
+            request.onblocked = function () {
+                finish(null);
+            };
+
+            request.onsuccess = function () {
+                var db = request.result;
+                var transaction;
+
+                try {
+                    transaction = db.transaction(DIAG_STORE, 'readonly');
+                } catch (error) {
+                    finish(null);
+
+                    return;
+                }
+
+                transaction.oncomplete = function () {
+                    finish(result);
+                };
+
+                transaction.onerror = function () {
+                    finish(null);
+                };
+
+                transaction.onabort = function () {
+                    finish(null);
+                };
+
+                var get = transaction.objectStore(DIAG_STORE).get('state');
+
+                get.onsuccess = function () {
+                    result = get.result && typeof get.result === 'object' ? get.result : null;
+                };
+            };
+        });
+    }
+
+    /**
+     * Only the host of the push endpoint is reported (`fcm.googleapis.com`,
+     * `updates.push.services.mozilla.com`, …). The endpoint URL and the
+     * p256dh/auth keys are secrets and are never returned or transmitted.
+     */
+    function endpointHost(endpoint) {
+        if (typeof endpoint !== 'string' || endpoint === '') {
+            return null;
+        }
+
+        var match = /^[a-z][a-z0-9+.-]*:\/\/([^/?#]+)/i.exec(endpoint);
+
+        return match ? match[1] : null;
+    }
+
+    /**
+     * Everything needed to compare a working device with an affected one.
+     *
+     * @return {Promise<Object>}
+     */
+    function getDiagnostics() {
+        var report = {
+            collectedAt: new Date().toISOString(),
+            origin: window.location.origin,
+            basePath: basePath,
+            supported: STATE.supported,
+            permission: ('Notification' in window) ? window.Notification.permission : 'unsupported',
+            configured: STATE.configured,
+            enabled: STATE.enabled,
+            subscribed: STATE.subscribed,
+            subscriptionCount: STATE.subscriptionCount,
+            userAgent: navigator.userAgent,
+            serviceWorker: null,
+            subscription: null,
+            workerDiagnostics: null
+        };
+
+        return Promise.resolve(registrationPromise || null)
+            .then(function (registration) {
+                if (!registration) {
+                    return null;
+                }
+
+                var script = registration.active ||
+                    registration.waiting ||
+                    registration.installing;
+
+                report.serviceWorker = {
+                    scope: registration.scope,
+                    scriptURL: script && script.scriptURL ? script.scriptURL : null,
+                    state: script && script.state ? script.state : null
+                };
+
+                return readLocalSubscription(registration);
+            })
+            .then(function (subscription) {
+                if (subscription) {
+                    report.subscription = {
+                        endpointHost: endpointHost(subscription.endpoint),
+                        expirationTime: subscription.expirationTime || null,
+                        hasKeys: !!(
+                            subscription.keys &&
+                            subscription.keys.p256dh &&
+                            subscription.keys.auth
+                        )
+                    };
+                }
+
+                return readWorkerDiagnostics();
+            })
+            .then(function (workerDiagnostics) {
+                report.workerDiagnostics = workerDiagnostics;
+
+                return report;
+            })
+            .catch(function (error) {
+                report.error = String((error && error.name) || error);
+
+                return report;
+            });
+    }
+
+    /**
+     * Sends the report above to the server so it can be stored next to the
+     * subscription information the server already has.
+     *
+     * @return {Promise<Object>} {server, client}
+     */
+    function sendDiagnostics() {
+        return getDiagnostics().then(function (report) {
+            return Espo.Ajax.postRequest('PushSubscription/action/diagnostics', {
+                client: report
+            }).then(function (response) {
+                return response || {};
+            }, function () {
+                /* The local report is still useful if the call fails. */
+                return { client: report, server: null };
+            });
+        });
+    }
+
     /* --------------------------------------------------------------- status */
 
     function loadServerStatus() {
@@ -265,12 +486,20 @@ define('custom:helpers/web-push-manager', [], function () {
         });
 
         registrationPromise = navigator.serviceWorker
-            .register(basePath + 'sw.js', { scope: basePath })
+            .register(basePath + 'sw.js', {
+                scope: basePath,
+                /* Never satisfy the worker script from the HTTP cache. A
+                   cached worker is how an affected device ends up running a
+                   version the server has already replaced. */
+                updateViaCache: 'none'
+            })
             .then(function () {
                 return navigator.serviceWorker.ready;
             })
             .then(function (registration) {
                 set({ serviceWorkerReady: true });
+
+                refreshServiceWorker(registration);
 
                 return registration;
             })
@@ -290,13 +519,21 @@ define('custom:helpers/web-push-manager', [], function () {
                     return readLocalSubscription(registration).then(function (subscription) {
                         set({ subscribed: !!subscription });
 
-                        if (!subscription || window.Notification.permission !== 'granted') {
+                        if (window.Notification.permission !== 'granted') {
+                            /* Never prompt here - the navbar toggle does that. */
                             return null;
                         }
 
-                        /* Permission already granted: keep the server copy in
-                           sync without asking the user anything. */
-                        return ensureSubscription(registration);
+                        /* Permission is already granted, so a subscription that
+                           went missing (cleared site data, a replaced worker, a
+                           rotated VAPID key) is repaired silently. */
+                        return ensureSubscription(registration)
+                            .then(function () {
+                                return readLocalSubscription(registration);
+                            })
+                            .then(function (current) {
+                                set({ subscribed: !!current });
+                            });
                     });
                 });
             })
@@ -436,11 +673,17 @@ define('custom:helpers/web-push-manager', [], function () {
                     return readLocalSubscription(registration).then(function (subscription) {
                         set({ subscribed: !!subscription });
 
-                        if (!subscription || window.Notification.permission !== 'granted') {
+                        if (window.Notification.permission !== 'granted') {
                             return null;
                         }
 
-                        return ensureSubscription(registration);
+                        return ensureSubscription(registration)
+                            .then(function () {
+                                return readLocalSubscription(registration);
+                            })
+                            .then(function (current) {
+                                set({ subscribed: !!current });
+                            });
                     });
                 });
             })
@@ -480,6 +723,8 @@ define('custom:helpers/web-push-manager', [], function () {
         enable: enable,
         disable: disable,
         sendTest: sendTest,
+        getDiagnostics: getDiagnostics,
+        sendDiagnostics: sendDiagnostics,
         getState: getState,
         onChange: onChange,
         getBasePath: function () { return basePath; }

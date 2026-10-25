@@ -52,6 +52,7 @@ client/custom/
   src/helpers/web-push-manager.js       SW + permission + API calls
   src/views/site/navbar/web-push.js     navbar control
   res/templates/site/navbar/web-push.tpl
+.htaccess                               never lets a browser cache sw.js
 public/sw.js                            service worker (root scope)
 data/webpush-config.php                 VAPID fallback, private key — never public
 ```
@@ -71,6 +72,11 @@ server-owned items (HTTPS and cron) is automatic.
 2. **Serve the app from the domain root** (or know your base path). The service
    worker is registered as `basePath + 'sw.js'` with `scope: basePath`, so
    `public/sw.js` must answer at `<base>/sw.js`.
+   Answer it with `Cache-Control: no-cache` — a shipped `.htaccess` rule does
+   this for `sw.js` and for nothing else. The worker is the one file a browser
+   is *allowed* to cache on its own schedule; if a server gives it a long
+   lifetime, devices that already have it registered keep the old copy for days
+   and never see a fix you deploy.
 3. **VAPID key pair.** Normally nothing to do: the first request generates a
    pair and writes `data/webpush-config.php`, so a fresh deployment starts
    working by itself. Two reasons to run it by hand instead — choosing the
@@ -162,6 +168,8 @@ All under `/api/v1/PushSubscription/action/…`, authenticated as usual.
 | POST | `subscribe` | Body: `{endpoint, keys:{p256dh, auth}, expirationTime, deviceName}` |
 | POST | `unsubscribe` | Body: `{endpoint}` |
 | POST | `sendTest` | Fires one push at the calling user's devices |
+| POST | `diagnostics` | Body: `{client: …}` — this account's server view plus the browser's own report |
+| GET | `devices` | Administrator only: every device on the installation, endpoint URL omitted |
 
 `sendTest` response:
 
@@ -171,6 +179,26 @@ All under `/api/v1/PushSubscription/action/…`, authenticated as usual.
 { "result": "failed",  "error": "notConfigured",  "sent": 0, "success": false }
 { "result": "failed",  "error": "noSubscription", "sent": 0, "success": false }
 ```
+
+**Diagnostics.** One call answers *"why did this device behave differently"*.
+`POST diagnostics` returns two halves:
+
+* `server` — what the installation holds for the caller: VAPID configuration,
+  the master switch, subscription count, muted categories, one row per device,
+  and the time it was checked;
+* `client` — what that browser's own service worker recorded: worker version,
+  how many pushes it received, whether `showNotification()` was ever called,
+  when, and the **name** of the last error (never its message).
+
+`GET devices` returns the same per-device rows across all accounts and is
+refused unless the caller is an administrator — that is how a device that works
+is compared with one that does not.
+
+Nothing that could be used to forge a push travels in either direction: the
+endpoint URL, the `p256dh`/`auth` keys and anything token-shaped are dropped
+before the answer is built, and the browser's report is depth- and
+size-limited. A device is identified by its push service host
+(`fcm.googleapis.com`, …) and user agent.
 
 ### User-facing control
 
@@ -264,6 +292,23 @@ so a transient outage cannot destroy a working subscription.
 * The OS controls presentation: Windows focus assist, macOS Do Not Disturb, and
   per-site notification permissions can all suppress a visible banner while the
   push was still delivered.
+* **A delivered push can stay silent.** Windows groups notifications by tag,
+  and replacing the previous one under the same tag can write a new entry to
+  the notification centre without raising the banner again. The worker now sets
+  `renotify` whenever a tag is present, which asks the OS to alert once more —
+  and the OS is still free to refuse if repeated notifications are switched off
+  for that site.
+* **Whether a banner appears at all is the operating system's decision.** Focus
+  Assist / Do Not Disturb, the per-site notification setting in Windows, battery
+  saver and enterprise policy can all accept the push and show only an entry in
+  the notification centre. No script can override this. It is the case the
+  diagnostics report exists to separate: if it shows the push arrived and
+  `showNotification()` ran without error, the switch lives in the OS, not in
+  the module.
+* **A stale worker hides deployed fixes.** Because a browser may cache `sw.js`
+  on its own schedule, a device can keep running yesterday's worker after
+  today's release. `sw.js` must be served `no-cache` (§3) and the manager
+  re-checks it at every sign-in; confirm the header before blaming the code.
 * No at-least-once guarantee across a lost subscription: if the browser drops
   the subscription while offline, notifications stop until the user re-enables.
 * `sw.js` must stay at the served root; moving it changes the scope and
@@ -278,6 +323,8 @@ so a transient outage cannot destroy a working subscription.
 | Toggle says "not configured" | `data/` is not writable, or the three `VAPID_*` env vars are incomplete — `php command.php web-push-generate-vapid-keys` then `php rebuild.php` |
 | Subscribe succeeds, nothing arrives | `webPushEnabled` in `config.php`; browser push service reachability; `data/logs/espo-YYYY-MM-DD.log` |
 | Nothing arrives with the browser closed | The limitation in §9 — verify on that machine with the browser closed |
+| Reaches the notification centre, never pops up | Windows re-alerting on the same tag, or an OS banner setting — collect `POST diagnostics` for that account and compare it with a device that works (§6) |
+| One device ignored a fix deployed to the server | The browser still holds the previous `sw.js` — confirm `<base>/sw.js` answers `Cache-Control: no-cache`, then reload the CRM on that device |
 | Duplicates return after a scheduler change | `actionId` changed; old rows keep their key, new rows get a new one |
 | Permission prompt never appears | Only the navbar toggle requests it; check the browser's site permissions |
 | Push works, in-app panel does not | WebSocket submission path, unrelated to this module |
@@ -291,7 +338,9 @@ Automated suites (run from the development machine):
 | Suite | Covers |
 |-------|--------|
 | `webpush-infra-test.php` | VAPID, payload builder, preferences, subscription lifecycle, dedup, dispatch e2e with real decryption, scheduler, API routes, probe round-trip, cleanup |
-| `webpush-frontend-check.mjs` | Service worker contract, no auto-prompt, manager API, navbar wiring, endpoints |
+| `webpush-frontend-check.mjs` | Service worker contract, no auto-prompt, manager API, navbar wiring, endpoints, delivery reliability (cache headers, tag/`renotify`, diagnostics) |
+| `sw-runtime-check.mjs` | The worker executed in isolation: payload parsing, `showNotification()`, `renotify`, failure handling, IndexedDB diagnostics, `notificationclick`, install/activate |
+| `check-all.mjs` | Runs all four Web Push suites in one command: `node tests/check-all.mjs` |
 | `wp-meta-check.php` | Metadata / entityDefs / scriptList |
 | `test-diff-hook.php`, `test-e2e.php`, `test-dup-iso.php`, `test-dup-source.php`, `dup-api-check.mjs`, `ui-api-check.mjs` | Regressions for the earlier History-diff and duplicate work |
 | `task-prefill-meta.php`, `task-prefill-check.mjs`, `handler-unit.mjs` | Task prefill |
@@ -308,3 +357,17 @@ browser are both closed** — must be performed manually:
 5. Trigger another notification.
 6. Confirm the OS banner still appears. If it does not on that machine, that is
    the limitation in §9 — not a defect in the module.
+7. If it did not, run `POST diagnostics` for that account (§6) and compare the
+   report with a device that works: worker version, push service host, pushes
+   received, `showNotification()` called, last error. Those five fields tell
+   apart "never reached the browser", "reached the worker but not shown", and
+   "shown but suppressed by the OS".
+
+Run the sequence on more than one account — the administrator's own device is
+the one case that can hide a permission or scope problem — and cover:
+
+* the administrator's device and a freshly created account;
+* Chrome and Edge on Windows;
+* the tab focused, another tab focused, the window closed but the browser
+  running, and the browser fully closed;
+* several notifications in quick succession (the tag/`renotify` case in §9).

@@ -1,4 +1,5 @@
 {
+    "modelDefaultsPreparator": "custom:handlers/lead/defaults-preparator",
     "recordViews": {
         "edit": "custom:views/lead/record/edit",
         "editSmall": "custom:views/lead/record/edit-small"

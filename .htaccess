@@ -1,5 +1,12 @@
 <ifModule mod_headers.c>
     Header always set Access-Control-Allow-Methods "POST, GET, PUT, PATCH, DELETE"
+
+    # The service worker must never be answered from a cache. Web servers
+    # routinely serve static .js with a long max-age, and a device that keeps
+    # running a replaced `sw.js` keeps the old notification behaviour for
+    # days. Set by the rewrite rule below.
+    Header set Cache-Control "no-cache, no-store, must-revalidate" env=ESPO_SERVICE_WORKER
+    Header unset Expires env=ESPO_SERVICE_WORKER
 </ifModule>
 
 DirectoryIndex index.php
@@ -8,6 +15,9 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Mark service worker requests so the response is sent uncached.
+    RewriteRule (^|/)sw\.js$ - [E=ESPO_SERVICE_WORKER:1]
 
     # Forbid access. Not actual as redirect to `public` is applied.
     # An extra security measure if redirect not fired.

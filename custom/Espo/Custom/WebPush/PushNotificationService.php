@@ -118,6 +118,12 @@ final class PushNotificationService
             $payload['tag'] = self::limit($tag, 100);
         }
 
+        /* Kept out of the payload unless it is on: the service worker only
+           has to act on it for notifications that should stay on screen. */
+        if (($params['requireInteraction'] ?? false) === true) {
+            $payload['requireInteraction'] = true;
+        }
+
         return $payload;
     }
 
