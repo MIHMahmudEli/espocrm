@@ -1,15 +1,14 @@
-define('custom:handlers/lead/defaults-preparator', ['handlers/model/defaults-preparator'], function (Dep) {
+define('custom:handlers/defaults-preparator', ['handlers/model/defaults-preparator'], function (Dep) {
 
     /**
-     * Prefills Assigned User on the Lead create form with the person who
-     * opened it.
+     * Prefills Assigned User on the create forms of Lead, Account, Call,
+     * Meeting and CProductService with the person who opened them.
      *
      * EspoCRM already has this behaviour built in, but it is switched off for
      * a user whose preference "Do not fill assigned user if not required" is
-     * on, and Lead's `assignedUser` field is not required. Rather than change
-     * that preference for every scope, this preparator does it for Lead only.
-     *
-     * It is wired up through `modelDefaultsPreparator` in the custom Lead
+     * on, and the field is not required on these scopes. Rather than change
+     * that preference for every scope, this preparator does it for the five
+     * scopes that wire it up through `modelDefaultsPreparator` in their
      * clientDefs. `helpers/model/defaults-populator` runs it when a *new*
      * model is created and applies the result with `set(..., {silent: true})`,
      * so it never touches a record that is being edited. Values coming from

@@ -62,7 +62,8 @@
             "lastName",
             "addressStreet",
             "addressCity",
-            "phoneNumber"
+            "phoneNumber",
+            "website"
         ],
         "fullTextSearch": true,
         "countDisabled": false

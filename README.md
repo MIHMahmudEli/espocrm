@@ -20,6 +20,7 @@ This repository tracks the chronological development snapshots and version histo
 | 5 | espocrm (5).zip | Added high-resolution branding asset (cgit-logo-192.png). |
 | 6 | espocrm (6).zip | Added MeetingReminders scheduled job, call time/date field views, and Call layout filters. |
 | 7 | espocrm (7).zip | Added custom detail and list layouts for Meeting and Account entities. |
+| latest | Current espocrm/ directory | Refactored defaults preparator handler and added Account/Lead metadata definitions (clientDefs/selectDefs). |
 
 ## Documentation & Diagnostics
 

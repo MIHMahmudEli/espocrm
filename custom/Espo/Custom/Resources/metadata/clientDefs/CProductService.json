@@ -1,4 +1,5 @@
 {
+    "modelDefaultsPreparator": "custom:handlers/defaults-preparator",
     "controller": "controllers/record",
     "boolFilterList": [
         "onlyMy"

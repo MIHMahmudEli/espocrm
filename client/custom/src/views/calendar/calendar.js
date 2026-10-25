@@ -52,6 +52,7 @@ define('custom:views/calendar/calendar', ['crm:views/calendar/calendar'], functi
 
         applyCalendarCustomization: function (calendar) {
             try {
+                calendar.setOption('slotMinHeight', 64);
                 calendar.setOption('dayHeaderContent', this.dayHeaderContent.bind(this));
                 calendar.setOption('eventContent', this.eventContent.bind(this));
                 calendar.setOption('eventClassNames', this.eventClassNames.bind(this));

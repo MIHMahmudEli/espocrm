@@ -1,4 +1,5 @@
 {
+    "modelDefaultsPreparator": "custom:handlers/defaults-preparator",
     "recordViews": {
         "detail": "custom:views/call/record/detail",
         "edit": "custom:views/call/record/edit",
