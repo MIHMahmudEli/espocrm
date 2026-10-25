@@ -87,6 +87,9 @@
         },
         "leads": {
             "type": "linkMultiple"
+        },
+        "meetings": {
+            "type": "linkMultiple"
         }
     },
     "links": {
@@ -121,6 +124,14 @@
             "relationName": "cLeadProductService",
             "foreign": "cProductServices",
             "entity": "Lead",
+            "audited": false,
+            "isCustom": true
+        },
+        "meetings": {
+            "type": "hasMany",
+            "relationName": "cMeetingProductService",
+            "foreign": "cProductServices",
+            "entity": "Meeting",
             "audited": false,
             "isCustom": true
         }

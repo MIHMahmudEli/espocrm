@@ -14,6 +14,27 @@
             "Recycled": "Recycled",
             "Dead": "Dead",
             "fff": "fff"
+        },
+        "source": {
+            "": "",
+            "Call": "Call",
+            "Email": "Email",
+            "Existing Customer": "Existing Customer",
+            "Partner": "Partner",
+            "Public Relations": "Public Relations",
+            "Web Site": "Web Site",
+            "Campaign": "Campaign",
+            "Whatsapp": "Whatsapp",
+            "Facebook": "Facebook",
+            "Others": "Others"
+        },
+        "phoneNumber": {
+            "Mobile": "Mobile",
+            "Office": "Office",
+            "Home": "Home",
+            "Fax": "Fax",
+            "Whatsapp": "Whatsapp",
+            "Other": "Other"
         }
     }
 }

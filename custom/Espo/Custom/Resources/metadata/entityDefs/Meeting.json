@@ -25,6 +25,20 @@
                 "Opportunity",
                 "Case"
             ]
+        },
+        "cProductServices": {
+            "type": "linkMultiple",
+            "required": true
+        }
+    },
+    "links": {
+        "cProductServices": {
+            "type": "hasMany",
+            "relationName": "cMeetingProductService",
+            "foreign": "meetings",
+            "entity": "CProductService",
+            "audited": false,
+            "isCustom": true
         }
     }
 }

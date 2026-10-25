@@ -23,6 +23,32 @@
                 "Recycled",
                 "Dead"
             ]
+        },
+        "source": {
+            "options": [
+                "",
+                "Call",
+                "Email",
+                "Existing Customer",
+                "Partner",
+                "Public Relations",
+                "Web Site",
+                "Campaign",
+                "Whatsapp",
+                "Facebook",
+                "Others"
+            ],
+            "style": {}
+        },
+        "phoneNumber": {
+            "typeList": [
+                "Mobile",
+                "Office",
+                "Home",
+                "Fax",
+                "Whatsapp",
+                "Other"
+            ]
         }
     },
     "collection": {

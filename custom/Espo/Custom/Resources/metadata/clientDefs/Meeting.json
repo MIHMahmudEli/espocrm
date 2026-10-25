@@ -39,5 +39,11 @@
                 "reference": "history"
             }
         ]
+    },
+    "relationshipPanels": {
+        "productServices": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
     }
 }

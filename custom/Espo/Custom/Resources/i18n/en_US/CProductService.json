@@ -7,11 +7,13 @@
         "priceConverted": "Price (Converted)",
         "status": "Status",
         "calls": "Calls",
-        "leads": "Leads"
+        "leads": "Leads",
+        "meetings": "Meetings"
     },
     "links": {
         "calls": "Calls",
-        "leads": "Leads"
+        "leads": "Leads",
+        "meetings": "Meetings"
     },
     "labels": {
         "Create CProductService": "Create ProductService",
